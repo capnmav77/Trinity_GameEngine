@@ -2,4 +2,4 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-class Unordered_Map{};
+class myUnordered_Map{};
