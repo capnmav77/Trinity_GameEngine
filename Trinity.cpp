@@ -2,7 +2,7 @@
 #include <vector>
 #include <tuple>
 
-#include "Engine/AI.h"
+#include "Engine/Ai.h"
 #include "Engine/GamePack.h"
 #include "Engine/GameEngine.h"
 
