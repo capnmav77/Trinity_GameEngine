@@ -17,6 +17,7 @@ class GamePack {
         virtual void display() = 0;
         virtual void move()=0;
         virtual void set_game_board(vector<vector<int>> game_board) = 0;
+        virtual int get_remaining_moves() = 0;
         // virtual int recur(vector<vector<int>> &board , int turn) ;
         // virtual int solve(vector<vector<int>> board) ;
         virtual int check_terminal() = 0;
@@ -33,6 +34,7 @@ class TicTacToe : public GamePack<int>{
         vector<vector<int>> game_board;
         int n; // size of the board
         int turn; // turn of the player
+        int remaining_moves;
 
 
         //terminal condition checker
@@ -86,6 +88,9 @@ class TicTacToe : public GamePack<int>{
                                 return val;
                             }
                         }
+                        if(remaining_moves == 0){
+                            return 2;
+                        }
                     }
                 }
             }
@@ -99,6 +104,7 @@ class TicTacToe : public GamePack<int>{
             this->n = n;
             this->game_board = vector<vector<int>>(n , vector<int>(n , -1));
             this->turn = 0;
+            this->remaining_moves = n*n;
             display();
         }
 
@@ -141,6 +147,10 @@ class TicTacToe : public GamePack<int>{
             cout<<"Game Over"<<endl;
         }
 
+        int get_remaining_moves(){
+            return remaining_moves;
+        }
+
         void display() {
             for (auto row : game_board) {
                 cout<<"| ";
@@ -156,7 +166,7 @@ class TicTacToe : public GamePack<int>{
             }
         }
 
-        void move(){
+        void move() {
             int i, j , num; 
             cout<<"Enter the number to input from 1 to 9: ";
             cin>>num;
@@ -169,9 +179,21 @@ class TicTacToe : public GamePack<int>{
             else{
                 game_board[i][j] = turn;
                 set_turn(turn^1);
+                remaining_moves--;
+                cout<<remaining_moves<<endl;
                 
             }
         }
 
 };
 
+
+// class Connect4 : public GamePack<int>{
+
+//     private: 
+//         vector<vector<int>> game_board;
+//         int n; // size of the board
+//         int turn; // turn of the player
+//     public : 
+
+// };

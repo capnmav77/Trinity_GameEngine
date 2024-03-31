@@ -17,20 +17,19 @@ class GameEngine {
                 Play();
             }
 
-        void Play() {
-            // creating a tic tac toe game
+            void Play() {
+                // creating a tic tac toe game
 
-            // playing the game pvp
-            //initialize the game board
-            game->init(3);
-            while(true){
-                cout<<"Player "<<game->get_turn()<<"'s turn : ";
-                cout<<"Enter the position to place your move : ";
-                game->move();
-                game->display();
-                if(game->check_terminal() != -1){
-                    break;
+                // playing the game pvp
+                //initialize the game board
+                game->init(3);
+                while(true){
+                    cout<<"Player "<<game->get_turn()<<"'s turn : ";
+                    game->move();
+                    game->display();
+                    if(game->check_terminal() != -1){
+                        break;
+                    }
                 }
             }
-        }
 };
