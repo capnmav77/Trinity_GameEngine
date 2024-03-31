@@ -1,20 +1,36 @@
 #include<iostream>
 #include<bits/stdc++.h>
+// #include "GamePack.h"
 using namespace std;
 
 
-
-// Class representing the game engine
-template<typename... Ts> 
 class GameEngine {
-    GamePack<?> gamePack; // Define appropriate type for game pack
-    
-public:
-    // Constructor to initialize the game engine with a specific game pack
-    GameEngine(GamePack<?> gamePack);
-    
-    // Function to start the game (player vs AI)
-    void startGame();
-    
-    // Other necessary functions
+    private :
+        // the game to be played is stored here 
+            GamePack<int>* game;
+
+        public: 
+            // a initializer class that takes in the game pack and plays the game   
+            void init(GamePack<int>* game) {
+                //initialize the game 
+                this->game = game;
+                Play();
+            }
+
+        void Play() {
+            // creating a tic tac toe game
+
+            // playing the game pvp
+            //initialize the game board
+            game->init(3);
+            while(true){
+                cout<<"Player "<<game->get_turn()<<"'s turn : ";
+                cout<<"Enter the position to place your move : ";
+                game->move();
+                game->display();
+                if(game->check_terminal() != -1){
+                    break;
+                }
+            }
+        }
 };

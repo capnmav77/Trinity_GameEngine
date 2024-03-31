@@ -166,6 +166,7 @@ public:
             board[i][j] = 0;
         }
     }
+    
     bool displayOption(){
         int x;
         cout<<"select : "<<endl;
