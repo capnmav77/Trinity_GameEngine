@@ -139,7 +139,9 @@ class TTT : public GamePack<2>
 {
     TTTBoard board;
     Vector<char> player_notation;
+    int turn = 0;
 
+public:
     int process_move(string input);
     void render_board() ;
 

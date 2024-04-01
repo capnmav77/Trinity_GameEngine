@@ -40,7 +40,7 @@ class GameEngine
 {
 private:
     GAME game;
-    Vector<Player> players;
+    Vector<HumanPlayer> players;
     int num_players;
     int turn;
 
@@ -53,11 +53,12 @@ public:
     void game_loop()
     {
         game.start_game();
-
+       
         while (true)
         {
             for (int i = 0; i < num_players; i++)
             {
+                 std::cout<<"Player "<<players[i].get_name()<<std::endl;
                 std::string move = players[i].get_move();
 
                 game.play_next(move);
@@ -72,8 +73,8 @@ public:
 
     void end_game()
     {
-        int winner = game.get_winner<int>();
-        cout << players[winner].get_name() << " wins" << endl;
+        // int winner = game.get_winner<int>();
+        cout << players[0].get_name() << " wins" << endl;
         std::cout << "Game Over" << std::endl;
     }
 };

@@ -47,7 +47,5 @@ int main() {
   GameEngine<TTT,HumanPlayer,HumanPlayer> engine(gamePack,h1,h2);
   engine.game_loop();
 
-
-    
     return 0;
 }
