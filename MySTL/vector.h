@@ -1,12 +1,12 @@
+#pragma once
 #include<iostream>
-#include<bits/stdc++.h>
 using namespace std;
 
 
 template<typename T>
 class Vector{
     T* buff;
-    unsigned int  capacity;
+    unsigned int  _capacity;
     unsigned int current;
 
     public:
@@ -42,21 +42,21 @@ class Vector{
 
 template<typename T>
 Vector<T>::Vector(){
-    capacity = 0;
+    _capacity = 0;
     current = 0;
     buff = NULL;
 }
 
 template<typename T>   
 Vector<T>::Vector(unsigned int size){
-    capacity = size;
+    _capacity = size;
     current = size;
     buff = new T[size];
 }
 
 template<typename T>
 Vector<T>::Vector(unsigned int size, const T& initial){
-    capacity = size;
+    _capacity = size;
     current = size;
     buff = new T[size];
     for(int i=0; i<size; i++){
@@ -66,9 +66,9 @@ Vector<T>::Vector(unsigned int size, const T& initial){
 
 template<typename T>
 Vector<T>::Vector(const Vector<T>& v){
-    capacity = v.capacity;
+    _capacity =v.capacity();
     current = v.current;
-    buff = new T[capacity];
+    buff = new T[_capacity];
     for(int i=0; i<current; i++){
         buff[i] = v.buff[i];
     }
@@ -87,7 +87,7 @@ int Vector<T>::size() const{
 
 template<typename T>
 int Vector<T>::capacity() const{
-    return capacity;
+    return _capacity;
 }
 
 template<typename T>
@@ -117,8 +117,8 @@ T& Vector<T>::back(){
 
 template<typename T>
 void Vector<T>::push_back(const T& value){
-    if(current == capacity){
-        reserve(capacity+5);
+    if(current == _capacity){
+        reserve(_capacity+5);
     }
     buff[current] = value;
     current++;
@@ -137,7 +137,7 @@ void Vector<T>::reserve(int capacity){
     }
     delete[] buff;
     buff = new_buff;
-    this->capacity = capacity;
+    this->_capacity = capacity;
 }
 
 template<typename T>
@@ -154,9 +154,9 @@ T& Vector<T>::operator[](int index){
 template<typename T>
 Vector<T>& Vector<T>::operator=(const Vector<T>& v){
     delete[] buff;
-    capacity = v.capacity;
+    _capacity = v._capacity;
     current = v.current;
-    buff = new T[capacity];
+    buff = new T[_capacity];
     for(int i=0; i<current; i++){
         buff[i] = v.buff[i];
     }
