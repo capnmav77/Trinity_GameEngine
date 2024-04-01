@@ -130,11 +130,6 @@ Vector<int> TTTBoard::get_valid_moves<int>()
 
 
 
-
-
-
-
-
 class TTT : public GamePack<2>
 {
     TTTBoard board;
@@ -142,6 +137,9 @@ class TTT : public GamePack<2>
     int turn = 0;
 
 public:
+    typedef int MOVE;
+    typedef char PLAYER_NOTATION;
+    typedef int STATE;
     int process_move(string input);
     void render_board() ;
 
@@ -189,6 +187,7 @@ void TTT::render_board()
 // Game Starting anything that needs to be done before the game starts
 void TTT::start_game()
 {
+    render_board();
 }
 
 
@@ -199,13 +198,13 @@ void TTT::init()
 
 bool TTT::game_over()
 {
-    return board.check_terminal<int>() != -1;
+    return board.check_terminal<TTT::STATE>() != -1;
 }
 
 void TTT::play_next(string input)
 {
     int move = process_move(input);
-    if (!board.playable<int>(move))
+    if (!board.playable<TTT::MOVE>(move))
     {
         cout << "Invalid Move" << endl;
         return;
@@ -218,7 +217,7 @@ void TTT::play_next(string input)
 
 // AI Learns the best move by simulating the game
 template <>
-void TTT::simulate<int>(int loc)
+void TTT::simulate<TTT::MOVE>(TTT::MOVE loc)
 {
 }
 
@@ -238,13 +237,13 @@ U TTT::get_winner()
 }
 
 template <>
-Vector<char> TTT::get_player_notations<char>()
+Vector<TTT::PLAYER_NOTATION> TTT::get_player_notations<TTT::PLAYER_NOTATION>()
 {
     return player_notation;
 }
 
 template <>
-Vector<int> TTT::get_valid_moves<int>() 
+Vector<TTT::MOVE> TTT::get_valid_moves<TTT::MOVE>() 
 {
     return board.get_valid_moves<int>();
 }
