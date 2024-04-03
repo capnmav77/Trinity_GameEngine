@@ -9,7 +9,6 @@ using namespace std;
 //     private :
 //         // the game to be played is stored here
 //             GamePack<int>* game;
-
 //         public:
 //             // a initializer class that takes in the game pack and plays the game
 //             void init(GamePack<int>* game) {
@@ -17,10 +16,8 @@ using namespace std;
 //                 this->game = game;
 //                 Play();
 //             }
-
 //             void Play() {
 //                 // creating a tic tac toe game
-
 //                 // playing the game pvp
 //                 //initialize the game board
 //                 game->init(3);
