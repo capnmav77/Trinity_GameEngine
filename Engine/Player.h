@@ -1,34 +1,35 @@
 #pragma once
 #include <iostream>
 
+#include "Ai.h"
+
 class Player
 {
-
 protected:
     std::string name;
-    int sequence;
+    //int sequence; ? - what is this for? ans: to keep track of the sequence of the player i.e 1st, 2nd, 3rd etc
 public:
-    virtual void get_player_details(){}
-    virtual std::string get_name(){}
-    virtual int get_sequence(){}
-    virtual std::string get_move(){}
+    virtual void initialize_player() = 0;
+    virtual std::string get_name()=0;
+    //virtual int get_sequence() = 0;
+    virtual std::string get_move() = 0;
 };
 
 class HumanPlayer : public Player
 {
     public:
-    void get_player_details() override;
+    void initialize_player() override;
     std::string get_name() override;
-    int get_sequence() override;
+    //int get_sequence() override;
     std::string get_move() override;
 };
 
-void HumanPlayer::get_player_details()
+void HumanPlayer::initialize_player()
 {
     std::cout << "Enter the name of the player : ";
     std::cin >> name;
-    std::cout << "Enter the sequence of the player : ";
-    std::cin >> sequence;
+    //std::cout << "Enter the sequence of the player : ";
+    //std::cin >> sequence;
 }
 
 std::string HumanPlayer::get_name()
@@ -36,16 +37,35 @@ std::string HumanPlayer::get_name()
     return name;
 }
 
-int HumanPlayer::get_sequence()
-{
-    return sequence;
-}
-
 std::string HumanPlayer::get_move()
 {
-    std::cout << get_name() << "'s turn : ";
+    cout<<"Player "<<name<<"Turn"<<": ";
     std::string move;
     std::cin >> move;
-    std::cout << std::endl;
     return move;
+}   
+
+class AiPlayer : public Player
+{
+    public:
+    void initialize_player() override;
+    std::string get_name() override;
+    //int get_sequence() override;
+    std::string get_move() override;
+};
+
+void AiPlayer::initialize_player()
+{
+    name = "AI";
+    //sequence = 2;
+}
+
+std::string AiPlayer::get_name()
+{
+    return name;
+}
+
+std::string AiPlayer::get_move()
+{
+    return "1";
 }
