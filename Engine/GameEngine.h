@@ -31,9 +31,18 @@ using namespace std;
 //                 }
 //             }
 // };
+template <typename GAME>
+class GameEngine{
+    public:
+
+    virtual void game_loop(){};
+
+    virtual void end_game(int condition){};
+
+};
 
 template <typename GAME, typename... Players>
-class GameEngine
+class GameEnginePVP : public GameEngine<GAME>
 {
 private:
     GAME game;
@@ -42,13 +51,10 @@ private:
     int turn;
 
 public:
-    GameEngine(GAME game,Players... players) : game(game) ,num_players(sizeof...(players)), turn(0) {
+    GameEnginePVP(GAME game,Players... players) : game(game) ,num_players(sizeof...(players)), turn(0) {
         (this->players.push_back(players),...);
        
     }
-
-// your sooo deadddd....
-// why make simple stuff this complicateddd
 
     void game_loop()
     {
@@ -83,4 +89,40 @@ public:
             std::cout<<"It's a draw"<<std::endl;
         }
     }
+
 };
+
+template <typename GAME, typename Player , typename AIPlayer>
+class GameEngineAVP : public GameEngine<GAME>
+{
+    private: 
+        GAME game;
+        HumanPlayer Human_Player;
+        AiPlayer AI;
+        int turn ; 
+
+    public : 
+        GameEngineAVP(GAME game,Player player1 , AIPlayer player2) : game(game) , turn(0) {
+            this->Human_Player = player1;
+            this->AI = player2;
+            cout<<Human_Player.get_name()<<" vs "<<AI.get_name()<<endl;
+        }
+
+        void game_loop(){
+            cout<<"Chill bro all cool , gotta implement this ez pz"<<endl;
+
+        }
+
+        void end_game(int condition)
+        {
+            // if(condition != -2){
+            //     std::cout<<"Player "<<players[condition].get_name()<<" wins"<<std::endl;
+            // }
+            // else{
+            //     std::cout<<"It's a draw"<<std::endl;
+            // }
+        }
+
+};
+
+
