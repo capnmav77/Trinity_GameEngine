@@ -6,7 +6,6 @@
 
 using namespace std;
 
-<<<<<<< HEAD
 // class GameEngine {
 //     private :
 //         // the game to be played is stored here
@@ -42,9 +41,6 @@ class GameEngine{
     virtual void end_game(int condition){};
 
 };
-=======
-
->>>>>>> 74adc2f8702332ea7d120040bcd0bf163e53db17
 
 template <typename GAME, typename... Players>
 class GameEnginePVP : public GameEngine<GAME>
@@ -62,13 +58,6 @@ public:
        
     }
 
-<<<<<<< HEAD
-=======
-// your sooo deadddd....
-// why make simple stuff this complicateddd
-// not happeninggg
-
->>>>>>> 74adc2f8702332ea7d120040bcd0bf163e53db17
     void game_loop()
     {
         game.start_game();
