@@ -69,7 +69,6 @@ void TTTBoard::move<int, int>(int loc, int turn)
         cout << "Invalid Move" << endl;
         // Sometype of error handling
         // finished it cuntt....
-        // okie
     }
     else
     {
@@ -80,16 +79,12 @@ void TTTBoard::move<int, int>(int loc, int turn)
 
 // i swear to god i'll .... , whyyyyyy
 // check the typeee you fooollll
-// Ah i see mb
 
 template <>
 int TTTBoard::check_terminal<int>()
 {
     //cout<<"Checking for terminal"<<endl;
     //return 0 -> player 1 , 1->player2 , 2-> draw , -1 -> game not over
-
-    //make enum for these values
-    //Game engine must me able to decode it somehow
 
     //check for a draw
     if(get_remaining_moves() == 0){
@@ -151,7 +146,7 @@ Vector<int> TTTBoard::get_valid_moves<int>()
 
 // rant = reminder to beat up avanish for writing the below code , what the f is this , why do you fucking need player notation , 
 //who writes public , protected and then public , cunt..... , and then forget's to mention private ..........
-// Sorry was in frustration that code was not working
+
 class TTT : public GamePack<2>
 {
 private:
