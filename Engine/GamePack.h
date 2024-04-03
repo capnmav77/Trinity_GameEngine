@@ -20,14 +20,14 @@ protected:
 public:
     virtual void init(){}
     virtual void start_game(){}
-    virtual void play_next(string move){}
+    virtual int play_next(string move) = 0;
     template <typename T>
     Vector<T> get_player_notations();
 
     template <typename U>
     U get_winner();
     
-    virtual bool game_over(){}
+    virtual int game_over()=0;
     
 };
 

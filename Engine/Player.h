@@ -6,12 +6,12 @@ class Player
 
 protected:
     std::string name;
-    int sequence;
+    int sequence; // 
 public:
-    virtual void get_player_details(){}
-    virtual std::string get_name(){}
-    virtual int get_sequence(){}
-    virtual std::string get_move(){}
+    virtual void get_player_details() = 0;
+    virtual std::string get_name()=0;
+    virtual int get_sequence() = 0;
+    virtual std::string get_move() = 0;
 };
 
 class HumanPlayer : public Player
@@ -46,6 +46,6 @@ std::string HumanPlayer::get_move()
     std::cout << get_name() << "'s turn : ";
     std::string move;
     std::cin >> move;
-    std::cout << std::endl;
+    std::cout<<move << std::endl;
     return move;
 }

@@ -50,6 +50,9 @@ public:
        
     }
 
+// your sooo deadddd....
+// why make simple stuff this complicateddd
+
     void game_loop()
     {
         game.start_game();
@@ -58,23 +61,32 @@ public:
         {
             for (int i = 0; i < num_players; i++)
             {
-                 std::cout<<"Player "<<players[i].get_name()<<std::endl;
-                std::string move = players[i].get_move();
+                //std::cout<<"Player "<<players[i].get_name()<<std::endl;
 
-                game.play_next(move);
-                if (game.game_over())
+                while(true){
+                    std::string move = players[i].get_move();
+                    if(game.play_next(move)){
+                        break;
+                    }
+                }
+                int terminal_status = game.game_over();
+                cout<<terminal_status<<endl;
+                if (terminal_status != -1)
                 {
-                    end_game();
+                    end_game(terminal_status);
                     return; // Exit the loop when game is over
                 }
             }
         }
     }
 
-    void end_game()
+    void end_game(int condition)
     {
-        // int winner = game.get_winner<int>();
-        cout << players[0].get_name() << " wins" << endl;
-        std::cout << "Game Over" << std::endl;
+        if(condition != -2){
+            std::cout<<"Player "<<players[condition].get_name()<<" wins"<<std::endl;
+        }
+        else{
+            std::cout<<"It's a draw"<<std::endl;
+        }
     }
 };
