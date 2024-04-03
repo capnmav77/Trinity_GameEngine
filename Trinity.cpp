@@ -44,7 +44,7 @@ int main() {
   h1.initialize_player();
   h2.initialize_player();
 
-  GameEnginePVP<TTT,HumanPlayer,HumanPlayer> engine(gamePack,h1,h2);
+  GameEngine<TTT,HumanPlayer,HumanPlayer> engine(gamePack,h1,h2);
   engine.game_loop();
 
   return 0;
