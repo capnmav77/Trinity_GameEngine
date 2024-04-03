@@ -2,45 +2,19 @@
 #include <iostream>
 #include "../MySTL/vector.h"
 #include "Player.h"
-// #include "GamePack.h"
+#include "GameTraits.h"
+
 using namespace std;
 
-// class GameEngine {
-//     private :
-//         // the game to be played is stored here
-//             GamePack<int>* game;
 
-//         public:
-//             // a initializer class that takes in the game pack and plays the game
-//             void init(GamePack<int>* game) {
-//                 //initialize the game
-//                 this->game = game;
-//                 Play();
-//             }
-
-//             void Play() {
-//                 // creating a tic tac toe game
-
-//                 // playing the game pvp
-//                 //initialize the game board
-//                 game->init(3);
-//                 while(true){
-//                     cout<<"Player "<<game->get_turn()<<"'s turn : ";
-//                     game->move();
-//                     game->display();
-//                     if(game->check_terminal() != -1){
-//                         break;
-//                     }
-//                 }
-//             }
-// };
 
 template <typename GAME, typename... Players>
 class GameEngine
 {
+    static_assert((IsPointerToPlayerDerived<Players>::value && ...), "All Players must be pointers to classes derived from Player");
 private:
     GAME game;
-    Vector<HumanPlayer> players;
+    Vector<Player*> players;
     int num_players;
     int turn;
 
@@ -58,8 +32,7 @@ public:
         {
             for (int i = 0; i < num_players; i++)
             {
-                 std::cout<<"Player "<<players[i].get_name()<<std::endl;
-                std::string move = players[i].get_move();
+                std::string move = players[i]->get_move();
 
                 game.play_next(move);
                 if (game.game_over())
@@ -73,8 +46,7 @@ public:
 
     void end_game()
     {
-        // int winner = game.get_winner<int>();
-        cout << players[0].get_name() << " wins" << endl;
+        cout << players[0]->get_name() << " wins" << endl;
         std::cout << "Game Over" << std::endl;
     }
 };

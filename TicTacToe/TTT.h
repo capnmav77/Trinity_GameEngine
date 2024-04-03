@@ -73,7 +73,7 @@ int TTTBoard::check_terminal<int>()
     // Check for rows
     for (int i = 0; i < 3; i++)
     {
-        if (game_board[i][0] == game_board[i][1] && game_board[i][1] == game_board[i][2])
+        if (game_board[i][0] == game_board[i][1] && game_board[i][1] == game_board[i][2] && game_board[i][0] != -1)
         {
             return game_board[i][0];
         }
@@ -82,20 +82,20 @@ int TTTBoard::check_terminal<int>()
     // Check for columns
     for (int i = 0; i < 3; i++)
     {
-        if (game_board[0][i] == game_board[1][i] && game_board[1][i] == game_board[2][i])
+        if (game_board[0][i] == game_board[1][i] && game_board[1][i] == game_board[2][i] && game_board[0][i] != -1)
         {
             return game_board[0][i];
         }
     }
 
     // Check for diagonals
-    if (game_board[0][0] == game_board[1][1] && game_board[1][1] == game_board[2][2])
+    if (game_board[0][0] == game_board[1][1] && game_board[1][1] == game_board[2][2] && game_board[1][1] != -1)
     {
         return game_board[0][0];
     }
 
     // Check for diagonals
-    if (game_board[0][2] == game_board[1][1] && game_board[1][1] == game_board[2][0])
+    if (game_board[0][2] == game_board[1][1] && game_board[1][1] == game_board[2][0] && game_board[1][1] != -1)
     {
         return game_board[0][2];
     }

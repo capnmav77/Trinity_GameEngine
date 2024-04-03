@@ -40,11 +40,9 @@ int main() {
 
   TTT gamePack;
   HumanPlayer h1,h2;
-
   h1.get_player_details();
   h2.get_player_details();
-
-  GameEngine<TTT,HumanPlayer,HumanPlayer> engine(gamePack,h1,h2);
+  GameEngine<TTT,HumanPlayer*,HumanPlayer*> engine(gamePack,&h1,&h2);
   engine.game_loop();
 
     return 0;
