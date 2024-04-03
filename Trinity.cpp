@@ -39,21 +39,13 @@ int main() {
     // }
 
   TTT gamePack;
-  // HumanPlayer h1,h2;
-
-  // h1.initialize_player();
-  // h2.initialize_player();
-
-  // GameEnginePVP<TTT,HumanPlayer,HumanPlayer> engine(gamePack,h1,h2);
-  // engine.game_loop();
-
-  HumanPlayer h1;
-  AiPlayer ai;
+  HumanPlayer h1,h2;
 
   h1.initialize_player();
-  ai.initialize_player();
+  h2.initialize_player();
 
-  GameEngineAVP<TTT,HumanPlayer,AiPlayer> engine(gamePack,h1,ai);
+  GameEngine<TTT,HumanPlayer,HumanPlayer> engine(gamePack,h1,h2);
+  engine.game_loop();
 
   return 0;
   

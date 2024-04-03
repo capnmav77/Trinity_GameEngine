@@ -2,9 +2,11 @@
 #include <iostream>
 #include "../MySTL/vector.h"
 #include "Player.h"
-// #include "GamePack.h"
+#include "GameTraits.h"
+
 using namespace std;
 
+<<<<<<< HEAD
 // class GameEngine {
 //     private :
 //         // the game to be played is stored here
@@ -40,13 +42,17 @@ class GameEngine{
     virtual void end_game(int condition){};
 
 };
+=======
+
+>>>>>>> 74adc2f8702332ea7d120040bcd0bf163e53db17
 
 template <typename GAME, typename... Players>
 class GameEnginePVP : public GameEngine<GAME>
 {
+    static_assert((IsPointerToPlayerDerived<Players>::value && ...), "All Players must be pointers to classes derived from Player");
 private:
     GAME game;
-    Vector<HumanPlayer> players;
+    Vector<Player*> players;
     int num_players;
     int turn;
 
@@ -56,6 +62,13 @@ public:
        
     }
 
+<<<<<<< HEAD
+=======
+// your sooo deadddd....
+// why make simple stuff this complicateddd
+// not happeninggg
+
+>>>>>>> 74adc2f8702332ea7d120040bcd0bf163e53db17
     void game_loop()
     {
         game.start_game();
@@ -65,7 +78,7 @@ public:
             for (int i = 0; i < num_players; i++)
             {
                 while(true){
-                    std::string move = players[i].get_move();
+                    std::string move = players[i]->get_move();
                     if(game.play_next(move)){
                         break;
                     }
@@ -83,7 +96,7 @@ public:
     void end_game(int condition)
     {
         if(condition != -2){
-            std::cout<<"Player "<<players[condition].get_name()<<" wins"<<std::endl;
+            std::cout<<"Player "<<players[condition]->get_name()<<" wins"<<std::endl;
         }
         else{
             std::cout<<"It's a draw"<<std::endl;
