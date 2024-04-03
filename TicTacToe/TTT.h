@@ -126,11 +126,15 @@ int TTTBoard::check_terminal<int>()
 template <>
 bool TTTBoard::playable<int>(int loc)
 {
+    if(loc>9 || loc<1){
+        return false;
+    }
     int row = (loc - 1) / 3;
     int col = (loc - 1) % 3;
     return game_board[row][col] == -1;
 }
 
+//smart thinking of using a 1D array for possible moves
 template <>
 Vector<int> TTTBoard::get_valid_moves<int>()
 {
@@ -149,9 +153,7 @@ Vector<int> TTTBoard::get_valid_moves<int>()
 }
 
 
-// rant = reminder to beat up avanish for writing the below code , what the f is this , why do you fucking need player notation , 
-//who writes public , protected and then public , cunt..... , and then forget's to mention private ..........
-// Sorry was in frustration that code was not working
+//Great, now we have the game board and the game logic
 class TTT : public GamePack<2>
 {
 private:
@@ -211,7 +213,7 @@ void TTT::render_board()
     board.display();
 }
 
-// Game Starting anything that needs to be done before the game starts
+// Starting of the Game let's put ASCII art , should be fun ! don't worry about it
 void TTT::start_game()
 {
     render_board();
