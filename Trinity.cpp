@@ -40,8 +40,8 @@ int main() {
 
   TTT gamePack;
   HumanPlayer h1,h2;
-  h1->initialize_player();
-  h2->initialize_player();
+  h1.initialize_player();
+  h2.initialize_player();
   GameEngine<TTT,HumanPlayer*,HumanPlayer*> engine(gamePack,&h1,&h2);
   engine.game_loop();
 
