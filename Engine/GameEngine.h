@@ -58,18 +58,13 @@ public:
         {
             for (int i = 0; i < num_players; i++)
             {
-                //std::cout<<"Player "<<players[i].get_name()<<std::endl;
-
                 while(true){
-                    std::string Turn = game.get_turn()==0?"O":"X";
-                    cout<<"Player "<<players[i].get_name()<<"'s turn for - "<<Turn<<": ";
                     std::string move = players[i].get_move();
                     if(game.play_next(move)){
                         break;
                     }
                 }
                 int terminal_status = game.game_over();
-                cout<<terminal_status<<endl;
                 if (terminal_status != -1)
                 {
                     end_game(terminal_status);
