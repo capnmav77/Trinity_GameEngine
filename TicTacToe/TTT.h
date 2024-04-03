@@ -185,6 +185,8 @@ public:
 
     int play_next(string move) override;
 
+    int get_turn() ;
+
     template <typename T>
     Vector<T> get_player_notations();
 
@@ -235,6 +237,12 @@ int TTT::play_next(string input)
     board.set_remaining_moves();
     render_board();
     return 1;
+}
+
+
+int TTT::get_turn()
+{
+    return turn;
 }
 
 // AI Learns the best move by simulating the game
