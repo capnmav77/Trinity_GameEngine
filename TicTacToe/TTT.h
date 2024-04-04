@@ -126,7 +126,7 @@ void TTT::render_board()
     board.display();
 }
 
-// Game Starting anything that needs to be done before the game starts
+// Starting of the Game let's put ASCII art , should be fun ! don't worry about it
 void TTT::start_game()
 {
     render_board();
