@@ -7,6 +7,7 @@ class Board
 {
 protected:
     Vector<Vector<T>> game_board;
+    int remaining_moves;
 public:
     // Initializes the board
     virtual void init()
@@ -16,6 +17,7 @@ public:
         {
             game_board[i] = Vector<T>(col);
         }
+        remaining_moves = row * col;
     };
 
     // Displays the board
@@ -35,4 +37,12 @@ public:
 
     template <typename U>
     Vector<U> get_valid_moves();
+
+    //get and set remaining moves
+    int get_remaining_moves(){
+        return remaining_moves;
+    }
+    void set_remaining_moves(){
+        remaining_moves--;
+    }
 };

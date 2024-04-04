@@ -2,45 +2,19 @@
 #include <iostream>
 #include "../MySTL/vector.h"
 #include "Player.h"
-// #include "GamePack.h"
+#include "GameTraits.h"
+
 using namespace std;
 
-// class GameEngine {
-//     private :
-//         // the game to be played is stored here
-//             GamePack<int>* game;
 
-//         public:
-//             // a initializer class that takes in the game pack and plays the game
-//             void init(GamePack<int>* game) {
-//                 //initialize the game
-//                 this->game = game;
-//                 Play();
-//             }
-
-//             void Play() {
-//                 // creating a tic tac toe game
-
-//                 // playing the game pvp
-//                 //initialize the game board
-//                 game->init(3);
-//                 while(true){
-//                     cout<<"Player "<<game->get_turn()<<"'s turn : ";
-//                     game->move();
-//                     game->display();
-//                     if(game->check_terminal() != -1){
-//                         break;
-//                     }
-//                 }
-//             }
-// };
 
 template <typename GAME, typename... Players>
 class GameEngine
 {
+    static_assert((IsPointerToPlayerDerived<Players>::value && ...), "All Players must be pointers to classes derived from Player");
 private:
     GAME game;
-    Vector<HumanPlayer> players;
+    Vector<Player*> players;
     int num_players;
     int turn;
 
@@ -50,6 +24,9 @@ public:
        
     }
 
+// your sooo deadddd....
+// why make simple stuff this complicateddd
+
     void game_loop()
     {
         game.start_game();
@@ -58,23 +35,29 @@ public:
         {
             for (int i = 0; i < num_players; i++)
             {
-                 std::cout<<"Player "<<players[i].get_name()<<std::endl;
-                std::string move = players[i].get_move();
-
-                game.play_next(move);
-                if (game.game_over())
+                while(true){
+                    std::string move = players[i]->get_move();
+                    if(game.play_next(move)){
+                        break;
+                    }
+                }
+                int terminal_status = game.game_over();
+                if (terminal_status != -1)
                 {
-                    end_game();
+                    end_game(terminal_status);
                     return; // Exit the loop when game is over
                 }
             }
         }
     }
 
-    void end_game()
+    void end_game(int condition)
     {
-        // int winner = game.get_winner<int>();
-        cout << players[0].get_name() << " wins" << endl;
-        std::cout << "Game Over" << std::endl;
+        if(condition != -2){
+            std::cout<<"Player "<<players[condition]->get_name()<<" wins"<<std::endl;
+        }
+        else{
+            std::cout<<"It's a draw"<<std::endl;
+        }
     }
 };

@@ -33,7 +33,7 @@ int main() {
     // // else if(choice == 3){
     // //     GamePack<int>* game = new Sudoku();
     // //     engine.init(game);
-    // // }
+    // // } 
     // else{
     //     cout<<"Invalid choice"<<endl;
     // }
@@ -41,11 +41,12 @@ int main() {
   TTT gamePack;
   HumanPlayer h1,h2;
 
-  h1.get_player_details();
-  h2.get_player_details();
+  h1.initialize_player();
+  h2.initialize_player();
 
-  GameEngine<TTT,HumanPlayer,HumanPlayer> engine(gamePack,h1,h2);
+  GameEngine<TTT,HumanPlayer*,HumanPlayer*> engine(gamePack,&h1,&h2);
   engine.game_loop();
 
-    return 0;
+  return 0;
+  
 }
