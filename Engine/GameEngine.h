@@ -43,6 +43,7 @@ public:
                     }
                 }
                 int terminal_status = game.game_over();
+                std::cout<<game.state_resolver<std::string>(terminal_status)<<std::endl;
                 if (terminal_status != -1)
                 {
                     end_game(terminal_status);
