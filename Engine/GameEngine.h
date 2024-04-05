@@ -24,8 +24,6 @@ public:
        
     }
 
-// your sooo deadddd....
-// why make simple stuff this complicateddd
 
     void game_loop()
     {
