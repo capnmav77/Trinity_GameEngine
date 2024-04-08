@@ -28,7 +28,6 @@ public:
     void game_loop()
     {
         game.start_game();
-       
         while (true)
         {
             for (int i = 0; i < num_players; i++)

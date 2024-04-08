@@ -2,49 +2,20 @@
 #include <vector>
 #include <tuple>
 #include "Engine/Player.h"
-
-// #include "Engine/Ai.h"
+#include "Engine/Ai.h"
 #include "Engine/GameEngine.h"
 #include "TicTacToe/TTT.h"
-
-
+#include "TicTacToe/TTTBoard.h"
 
 
 int main() {
-    // GameEngine engine;
-    // // UI
-    // cout<<"Welcome to the Trinity Game Engine"<<endl;
-    // cout<<"Choose the game you want to play : "<<endl;
-    // cout<<"1. Tic Tac Toe"<<endl;
-    // cout<<"2. Connect 4"<<endl;
-    // cout<<"3. Sudoku"<<endl;
 
-    // int choice;
-    // cin>>choice;
-
-    // if(choice == 1){
-    //     GamePack<int>* game = new TicTacToe();
-    //     engine.init(game);
-    // }
-    // // else if(choice == 2){
-    // //     GamePack<int>* game = new Connect4();
-    // //     engine.init(game);
-    // // }
-    // // else if(choice == 3){
-    // //     GamePack<int>* game = new Sudoku();
-    // //     engine.init(game);
-    // // } 
-    // else{
-    //     cout<<"Invalid choice"<<endl;
-    // }
-
-  TTT gamePack;
+  TTT gamePack ;
+  TTTBoard board;
   HumanPlayer h1,h2;
-  AiPlayer a1;
+  //initializing the Aiplayer with the ai object 
 
-  h1.initialize_player();
-  h2.initialize_player();
-  a1.initialize_player();
+  Ai<TTTBoard> ai(board);
 
   int choice;
   cout<<"Choose the game mode : "<<endl;
@@ -52,11 +23,15 @@ int main() {
   cin>>choice;
 
   if(choice == 1){
+    h1.initialize_player();
+    h2.initialize_player();
     GameEngine<TTT,HumanPlayer*,HumanPlayer*> engine1(gamePack,&h1,&h2);
     engine1.game_loop();
   }
   else if(choice == 2){
-    GameEngine<TTT,HumanPlayer*,AiPlayer*> engine2(gamePack,&h1,&a1);
+    h1.initialize_player();
+    AiPlayer<TTTBoard> a1(ai);
+    GameEngine<TTT,HumanPlayer*,AiPlayer<TTTBoard>*> engine2(gamePack,&h1,&a1);
     engine2.game_loop();
   }
   else{
