@@ -46,9 +46,21 @@ int main() {
   h2.initialize_player();
   a1.initialize_player();
 
-  GameEngine<TTT,HumanPlayer*,AiPlayer*> engine(gamePack,&h1,&a1);
-  engine.game_loop();
+  int choice;
+  cout<<"Choose the game mode : "<<endl;
+  cout<<"1. Human vs Human or"<<"2. Human vs AI"<<endl;
+  cin>>choice;
 
+  if(choice == 1){
+    GameEngine<TTT,HumanPlayer*,HumanPlayer*> engine1(gamePack,&h1,&h2);
+    engine1.game_loop();
+  }
+  else if(choice == 2){
+    GameEngine<TTT,HumanPlayer*,AiPlayer*> engine2(gamePack,&h1,&a1);
+    engine2.game_loop();
+  }
+  else{
+    cout<<"Invalid choice"<<endl;
+  }
   return 0;
-  
 }

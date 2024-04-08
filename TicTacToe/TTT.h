@@ -121,6 +121,9 @@ int TTTBoard::check_terminal<int>()
 template <>
 bool TTTBoard::playable<int>(int loc)
 {
+    if(loc < 1 || loc > 9){
+        return false;
+    }
     int row = (loc - 1) / 3;
     int col = (loc - 1) % 3;
     return game_board[row][col] == -1;
