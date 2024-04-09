@@ -15,11 +15,6 @@ private:
     Vector<int> player_notation;
     int turn = 0;
 
-public:
-    template <typename T >
-    vector<int> simulate(T loc , TTTBoard simboard, int turn);
-    template <typename T>
-    Vector<T> get_valid_moves();
 
 public:
     typedef int MOVE;
@@ -55,6 +50,15 @@ public:
 
     template <typename U>
     U get_winner();
+
+    //getting the valid_moves from TTTBoard
+    Vector<int> get_valid_moves(){
+        return board.get_valid_moves();
+    }
+
+    Vector<int> simulate(int loc , int turn){
+        return board.simulate(loc,turn);
+    }
 
 };
 
@@ -113,35 +117,6 @@ int TTT::get_turn()
 }
 
 
-template <typename T>
-vector<int> TTT::simulate(T loc , TTTBoard simboard, int turn)
-{
-    simboard.move(loc, turn);
-    vector<int> result(3, 0);
-    //current player notation
-    if(simboard.check_terminal<int>() != -1){
-        if(simboard.check_terminal<int>() == turn){
-            result[0] += 1;
-        }
-        else if(simboard.check_terminal<int>() == -2){
-            result[2] += 1;
-        }
-        else{
-            result[1] = 1;
-        }
-    }
-    else{
-        Vector<int> valid_moves = simboard.get_valid_moves<int>();
-        for(auto move : valid_moves){
-            TTTBoard new_board = simboard;
-            vector<int> new_result = simulate(move, new_board, (turn+1)%num_players);
-            for(int i=0;i<3;++i){
-                result[i] += new_result[i];
-            }
-        }
-    }
-    return result;
-}
 
 template <typename U>
 U TTT::get_winner()
@@ -162,10 +137,4 @@ template <>
 Vector<TTT::PLAYER_NOTATION> TTT::get_player_notations<TTT::PLAYER_NOTATION>()
 {
     return player_notation;
-}
-
-template <>
-Vector<TTT::MOVE> TTT::get_valid_moves<TTT::MOVE>() 
-{
-    return board.get_valid_moves<int>();
 }

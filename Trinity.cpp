@@ -11,12 +11,29 @@
 int main() {
 
   TTT gamePack ;
-  TTTBoard board;
   HumanPlayer h1,h2;
   //initializing the Aiplayer with the ai object 
+  AI<TTT> ai(gamePack);
+  ai.initialize_player();
+  h1.initialize_player();
+  //AiPlayer<Ai<TTT>> a1(ai); // call in the AiPlayer constructor and pass the reference of the ai object
+  //GameEngine<TTT,HumanPlayer*,AiPlayer<Ai<TTT>>*> engine1(gamePack,&h1,&a1);
 
-  Ai<TTTBoard> ai(board);
+  gamePack.start_game();
 
+  while(gamePack.game_over() == -1){
+    string move = h1.get_move();
+    gamePack.play_next(move);
+    if(gamePack.game_over() != -1){
+      break;
+    }
+    move = ai.get_best_move();
+    gamePack.play_next(move);
+  }
+
+  //AiPlayer<Ai<TTTBoard>,TTTBoard> a1(ai);
+
+/*
   int choice;
   cout<<"Choose the game mode : "<<endl;
   cout<<"1. Human vs Human or"<<"2. Human vs AI"<<endl;
@@ -37,5 +54,6 @@ int main() {
   else{
     cout<<"Invalid choice"<<endl;
   }
+*/
   return 0;
 }
