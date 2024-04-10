@@ -25,20 +25,21 @@ public:
 
     virtual void init() {}
     virtual void start_game() {}
-    virtual int play_next(string move){}
-    virtual int get_game_state(){}
+    virtual int play_next(string move) = 0;
+    virtual int get_game_state() = 0;
 
-    template <typename T>
-    void simulate(T state){}
+    //add two functions if you need to simulate the game
+    // template <typename T>
+    // void simulate(T state){}
 
-    template<typename T,typename U>
-    void simulate(T move,U turn){}
+    // template<typename T,typename U>
+    // void simulate(T move,U turn){}
 
     template<typename T>
     T get_next_player(T player){}
 
-    virtual int get_num_players(){}
+    virtual int get_num_players() = 0;
 
-    virtual int get_turn(){}
+    virtual int get_turn() = 0;
 
 };

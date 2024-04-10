@@ -15,7 +15,6 @@ private:
     TTTBoard board;
     Vector<int> player_notation;
     int turn = 0;
-
     int process_move(string input);
 
 public:
@@ -67,13 +66,13 @@ public:
     }
 };
 
-
+//clear the screen
 inline void clear_screen()
 {
     std::cout << "\033[2J\033[1;1H";
 }
 
-
+//simulate the game by saving the board state or loading the board state can be overloaded
 void TTT::simulate(SIMULATE_STATE state)
 {
     static TTTBoard tempBoard = board;
@@ -83,6 +82,8 @@ void TTT::simulate(SIMULATE_STATE state)
         board = tempBoard;
 }
 
+
+//run a simulation of the game by making a move and then unmaking it can be overloaded
 void TTT::simulate(TTT::MOVE loc, TTT::PLAYER_NOTATION turn)
 {
 
@@ -92,34 +93,39 @@ void TTT::simulate(TTT::MOVE loc, TTT::PLAYER_NOTATION turn)
         board.unmove(loc);
 }
 
+// change the type from string to int
 int TTT::process_move(string input)
 {
     return std::stoi(input);
 }
 
+
 // beautify the board display
 void TTT::render_board()
 {
-    clear_screen();
+    //clear_screen();
     board.display();
 }
 
-// Game Starting anything that needs to be done before the game starts
+// This function is called at the start of the game
 void TTT::start_game()
 {
     render_board();
 }
 
+// This function is called to initialize the game
 void TTT::init()
 {
     board.init();
 }
 
+// This function is called to get the game state
 int TTT::get_game_state()
 {
     return board.check_terminal<TTT::STATE>();
 }
 
+// This function is called to play the next move while also checking for validity
 int TTT::play_next(string input)
 {
     int move = process_move(input);
@@ -138,16 +144,20 @@ int TTT::play_next(string input)
     return 1;
 }
 
+// returns the turn
 int TTT::get_turn()
 {
     return turn;
 }
 
+
+// returns the number of players
 int TTT::get_num_players()
 {
     return num_players;
 }
 
+// returns the player notations of the winner
 template <typename U>
 U TTT::get_winner()
 {
@@ -163,6 +173,7 @@ U TTT::get_winner()
     }
 }
 
+// returns the player notations of the game
 template <>
 Vector<TTT::PLAYER_NOTATION> TTT::get_player_notations<TTT::PLAYER_NOTATION>()
 {

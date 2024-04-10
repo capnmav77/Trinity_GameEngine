@@ -45,7 +45,7 @@ public:
 
             Vector<int> result = simulate_game<typename GAME::MOVE,typename GAME::PLAYER_NOTATION>(moves,1);
             int total_games = result[0] + result[1] + result[2];
-            double UCB = ((result[0]*2.0 + result[1]*1.0 - result[2]*1.0) / total_games) + sqrt(2 * log(total_games) / (total_games * exploration_factor));
+            double UCB = ((result[0]*2.0 + result[1]*1.0 - result[2]*2.0)/total_games) + sqrt(2 * log(total_games) / (total_games * exploration_factor));
             cout<<"FOR MOVE " << moves << " UCB IS " << UCB << endl;
             UBC_Rates.push_back(UCB);
         }

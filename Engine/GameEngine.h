@@ -40,6 +40,10 @@ public:
                     }
                 }
                 int terminal_status = game->get_game_state();
+                cout<<"terminal status and rendered board"<<terminal_status<<endl;
+                game->render_board();
+                cout<<"rendered board"<<endl;
+                //cout<<"terminal status is "<<terminal_status<<endl;
                 if (terminal_status != -1)
                 {
                     end_game(terminal_status);

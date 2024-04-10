@@ -104,7 +104,7 @@ void TTTBoard::unmove<int>(int loc)
 template <>
 int TTTBoard::check_terminal<int>()
 {
-    //cout<<"Checking for terminal"<<endl;
+
     //return 0 -> player 1 , 1->player2 , -2-> draw , -1 -> game not over
 
     //check for a draw
@@ -124,7 +124,7 @@ int TTTBoard::check_terminal<int>()
     // Check for columns
     for (int i = 0; i < 3; i++)
     {
-        if (game_board[i][0] != -1 && game_board[0][i] == game_board[1][i] && game_board[1][i] == game_board[2][i])
+        if (game_board[0][i] != -1 && game_board[0][i] == game_board[1][i] && game_board[1][i] == game_board[2][i])
         {
             return game_board[0][i];
         }
