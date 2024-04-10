@@ -68,6 +68,12 @@ public:
 };
 
 
+inline void clear_screen()
+{
+    std::cout << "\033[2J\033[1;1H";
+}
+
+
 void TTT::simulate(SIMULATE_STATE state)
 {
     static TTTBoard tempBoard = board;
@@ -94,6 +100,7 @@ int TTT::process_move(string input)
 // beautify the board display
 void TTT::render_board()
 {
+    clear_screen();
     board.display();
 }
 

@@ -8,9 +8,6 @@
 // #include "TicTacToe/TTTBoard.h"
 
 
-
-
-
 void play()
 {
   std::cout << "Welcome to Generic AI Engine" << std::endl;
@@ -44,13 +41,11 @@ int main()
 
 
   /*
-  
-  1. Beutify The Menues and play events, use system cls or clear to remove old boards
   2. Add comments 
   3. Private and protected member of the class
   4. Concepts and constraints
+  1. Beutify The Menues and play events, use system cls or clear to remove old boards
   5. unordered_map implemntation
-  
   */
 
   return 0;
