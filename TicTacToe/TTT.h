@@ -52,12 +52,12 @@ public:
     U get_winner();
 
     //getting the valid_moves from TTTBoard
-    Vector<int> get_valid_moves(){
-        return board.get_valid_moves();
+    Vector<int> simulate(int loc, int turn) {
+        return board.simulate<int>(loc,turn,board);
     }
 
-    Vector<int> simulate(int loc , int turn){
-        return board.simulate(loc,turn);
+    Vector<int> get_valid_moves(){
+        return board.get_valid_moves();
     }
 
 };

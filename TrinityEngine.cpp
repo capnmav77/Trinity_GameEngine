@@ -47,7 +47,7 @@ public:
             // Calculate UCB1 (Upper Confidence Bound)
             // double UCB = (res[0] * 2.0 / total_games) +
             //              sqrt(2 * log(total_games) / total_games);
-            double UCB = res[0]*1.0/total_games + res[1]*0.8/total_games - res[2]*2.0/total_games;
+            double UCB = (res[0]*2.0 + res[1]*1.5 - res[2]*3.0)/total_games;
             
             cout << "Move: " << move << " Win rate: " << res[0] * 1.0 / total_games << " UCB: " << UCB << endl;
 
@@ -203,8 +203,8 @@ public:
     }
 };
 
-// GamePack
 
+// GamePack
 
 template <int players>
 class GamePack
@@ -237,7 +237,6 @@ public:
 
 
 // GameBoard
-
 
 template <int row, int col, typename T>
 class Board
@@ -305,10 +304,12 @@ public:
 
     template <typename U, typename V>
     void move(U loc, V turn);
+
+    template <typename U, typename V>
+    void unmove(U loc);
     
 
     Vector<int> get_valid_moves() {
-        //display the board 
         // cout<<"Getting valid moves for the board : "<<endl;
         // display();
         Vector<int> valid_moves;
@@ -325,11 +326,11 @@ public:
     template<typename T>
     Vector<int> simulate(T loc, int turn) {
         TTTBoard simboard(*this); // Create a copy of the current board
-        simboard.move(loc, turn); // Make the move on the copy
-        //check if the move is terminal 
+        simboard.move(loc, turn); 
+        Vector<int> result(3, 0);
         int terminal_state = simboard.check_terminal<int>();
+
         if(terminal_state != -1){
-            Vector<int> result(3, 0);
             if(terminal_state == turn){
                 result[0] = 1;
             }
@@ -341,7 +342,7 @@ public:
             }
             return result;
         }
-        Vector<int> result(3, 0);
+        
 
         // Get valid moves
         Vector<int> valid_moves = simboard.get_valid_moves();
@@ -372,6 +373,7 @@ public:
             } else {
                 result[2]++; // Loss
             }
+            unmove(move);
         }
 
         return result;
@@ -427,9 +429,12 @@ void TTTBoard::move<int, int>(int loc, int turn)
     }
 }
 
-
-// i swear to god i'll .... , whyyyyyy
-// check the typeee you fooollll
+template<>
+void TTTBoard::unmove<int,int>(int loc){
+    int row = (loc - 1) / 3;
+    int col = (loc - 1) % 3;
+    game_board[row][col] = -1;
+}
 
 template <>
 int TTTBoard::check_terminal<int>()

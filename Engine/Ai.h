@@ -38,16 +38,16 @@ public:
         Vector<double> win_rate;
         for (auto move : valid_moves) {
             // Simulate the move
-            Vector<int> res = game.simulate(move, 1);
-            cout<<"res[0] : "<<res[0]<<" res[1] : "<<res[1]<<" res[2] : "<<res[2]<<endl;
-            int total_games = res[0] + res[1] + res[2];
+            Vector<int> result = game.simulate(move, 1);
+            cout<<"result[0] : "<<result[0]<<" result[1] : "<<result[1]<<" result[2] : "<<result[2]<<endl;
+            int total_games = result[0] + result[1] + result[2];
             
             // Calculate UCB1 (Upper Confidence Bound)
-            // double UCB = (res[0] * 2.0 / total_games) +
+            // double UCB = (result[0] * 2.0 / total_games) +
             //              sqrt(2 * log(total_games) / total_games);
-            double UCB = res[0]*1.0/total_games + res[1]*0.8/total_games - res[2]*2.0/total_games;
+            double UCB = result[0]*1.0/total_games + result[1]*0.8/total_games - result[2]*2.0/total_games;
             
-            cout << "Move: " << move << " Win rate: " << res[0] * 1.0 / total_games << " UCB: " << UCB << endl;
+            cout << "Move: " << move << " Win rate: " << result[0] * 1.0 / total_games << " UCB: " << UCB << endl;
 
             //cin>>c;
             win_rate.push_back(UCB);

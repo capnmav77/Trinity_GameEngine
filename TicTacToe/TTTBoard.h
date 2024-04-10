@@ -23,6 +23,9 @@ public:
 
     template <typename U, typename V>
     void move(U loc, V turn);
+
+    template <typename U>
+    void unmove(U loc);
     
 
     Vector<int> get_valid_moves() {
@@ -41,14 +44,15 @@ public:
     }
 
     template<typename T>
-    Vector<int> simulate(T loc, int turn) {
-        TTTBoard simboard(*this); // Create a copy of the current board
-        simboard.move(loc, turn); // Make the move on the copy
-        //check if the move is terminal 
+    Vector<int> simulate(int loc, int turn, TTTBoard& simboard) {
+        // Make the move on the current board
+        simboard.move(loc, turn); 
+
+        Vector<int> result(3, 0);
         int terminal_state = simboard.check_terminal<int>();
+
         if(terminal_state != -1){
-            Vector<int> result(3, 0);
-            if(terminal_state == turn){
+            if(terminal_state == 1){
                 result[0] = 1;
             }
             else if(terminal_state == -2){
@@ -57,43 +61,34 @@ public:
             else{
                 result[2] = 1;
             }
+            // Undo the move before returning
+            simboard.unmove(loc);
             return result;
         }
-        Vector<int> result(3, 0);
 
         // Get valid moves
         Vector<int> valid_moves = simboard.get_valid_moves();
         if(valid_moves.size() == 0){
             result[1] = 1;
+            // Undo the move before returning
+            simboard.unmove(loc);
             return result;
         }
 
         // Simulate each possible move
         for (auto move : valid_moves) {
-            // Create a copy of the board for each move
-            TTTBoard temp_board(simboard);
-            temp_board.move(move, (turn + 1) % 2); // Alternate players
-
-            // Check terminal state
-            int terminal_state = temp_board.check_terminal<int>();
-            if (terminal_state == 1) {
-                result[0]++; // Win
-            } else if (terminal_state == -1) {
-                // Recursively simulate if the game is not over yet
-                Vector<int> recursive_result = temp_board.simulate(move, (turn + 1) % 2);
-                result[0] += recursive_result[0]; // Wins from recursive simulation
-                result[1] += recursive_result[1]; // Draws from recursive simulation
-                result[2] += recursive_result[2]; // Losses from recursive simulation
-            } else if(terminal_state == -2){
-                result[1]++; // Draw
-            
-            } else {
-                result[2]++; // Loss
-            }
+            // Recursively simulate the move without copying the board
+            Vector<int> recursive_result = this->simulate<int>(move, (turn + 1) % 2, simboard);
+            result[0] += recursive_result[0]; // Wins from recursive simulation
+            result[1] += recursive_result[1]; // Draws from recursive simulation
+            result[2] += recursive_result[2]; // Losses from recursive simulation
         }
 
+        // Undo the move before returning
+        simboard.unmove(loc);
         return result;
     }
+
 
 
 };
@@ -143,6 +138,15 @@ void TTTBoard::move<int, int>(int loc, int turn)
     {
         game_board[row][col] = turn;
     }
+}
+
+
+template <>
+void TTTBoard::unmove<int>(int loc)
+{
+    int row = (loc - 1) / 3;
+    int col = (loc - 1) % 3;
+    game_board[row][col] = -1;
 }
 
 
