@@ -16,6 +16,7 @@ private:
     Vector<int> player_notation;
     int turn = 0;
     int process_move(string input);
+    inline void clear_screen();
 
 public:
     typedef int MOVE;
@@ -43,6 +44,7 @@ public:
     U get_winner();
 
     void simulate(SIMULATE_STATE state);
+    
     void simulate(TTT::MOVE loc, TTT::PLAYER_NOTATION turn);
 
     TTT()
@@ -66,8 +68,9 @@ public:
     }
 };
 
+
 //clear the screen
-inline void clear_screen()
+inline void TTT::clear_screen()
 {
     std::cout << "\033[2J\033[1;1H";
 }

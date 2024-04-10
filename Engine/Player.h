@@ -9,7 +9,7 @@ protected:
     std::string name;
     //int sequence; ? - what is this for? ans: to keep track of the sequence of the player i.e 1st, 2nd, 3rd etc
 public:
-    virtual void initialize_player() = 0;
+    virtual void initialize_player(int turn) = 0;
     virtual std::string get_move() = 0;
     virtual std::string get_name() = 0;
 };
@@ -18,7 +18,7 @@ public:
 class HumanPlayer : public Player 
 {
     public:
-    void initialize_player(){
+    void initialize_player(int turn) {
         std::cout << "Enter the name of the player : ";
         std::cin >> name;
     }
@@ -48,8 +48,9 @@ public:
     }   
         
 
-    void initialize_player() override {
+    void initialize_player(int turn) override {
         this->name = "AI";
+        ai->set_turn(turn);
     }
 
     std::string get_name() override {

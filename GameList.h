@@ -24,31 +24,37 @@ void TTT_Plugin()
   cin>>wish;
 
   TTT gamePack;
-  HumanPlayer h1, h2;
-  AIPlayer<TTT> ai_1(&gamePack),ai_2(&gamePack);
+  // HumanPlayer h1, h2;
+  // AIPlayer<TTT> ai_1(&gamePack),ai_2(&gamePack);
   
   if(wish == 1)
   {
-    h1.initialize_player();
-    h2.initialize_player();
+    HumanPlayer h1, h2;
+    h1.initialize_player(1);
+    h2.initialize_player(2);
     GameEngine<TTT,HumanPlayer*,HumanPlayer*> gameEngine(&gamePack,&h1,&h2); 
     gameEngine.game_loop();
   }
   else if(wish ==2){
-    ai_1.initialize_player();
-    h2.initialize_player();
+    HumanPlayer h2;
+    AIPlayer<TTT> ai_1(&gamePack);
+    ai_1.initialize_player(1);
+    h2.initialize_player(2);
     GameEngine<TTT,AIPlayer<TTT>*,HumanPlayer*> gameEngine(&gamePack,&ai_1,&h2);
     gameEngine.game_loop(); 
   }
   else if(wish ==3){
-    h1.initialize_player();
-    ai_2.initialize_player();
+    HumanPlayer h1;
+    AIPlayer<TTT> ai_2(&gamePack);
+    h1.initialize_player(1);
+    ai_2.initialize_player(2);
     GameEngine<TTT,HumanPlayer*,AIPlayer<TTT>*> gameEngine(&gamePack,&h1,&ai_2); 
     gameEngine.game_loop();
   }
   else{
-    ai_1.initialize_player();
-    ai_2.initialize_player();
+    AIPlayer<TTT> ai_1(&gamePack),ai_2(&gamePack);
+    ai_1.initialize_player(1);
+    ai_2.initialize_player(2);
     GameEngine<TTT,AIPlayer<TTT>*,AIPlayer<TTT>*> gameEngine(&gamePack,&ai_1,&ai_2); 
     gameEngine.game_loop();
   }
