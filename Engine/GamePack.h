@@ -12,19 +12,33 @@ public:
     int turn;
 
     template <typename T>
-    void simulate(T loc);
+    void simulate(T loc){}
 
     template <typename T>
-    Vector<T> get_player_notations();
+    Vector<T> get_player_notations(){}
 
     template <typename U>
-    U get_winner();
+    U get_winner(){}
 
     template <typename T>
-    Vector<T> get_valid_moves();
+    Vector<T> get_valid_moves(){}
 
     virtual void init() {}
     virtual void start_game() {}
-    virtual int play_next(string move) = 0;
-    virtual int get_game_state() = 0;
+    virtual int play_next(string move){}
+    virtual int get_game_state(){}
+
+    template <typename T>
+    void simulate(T state){}
+
+    template<typename T,typename U>
+    void simulate(T move,U turn){}
+
+    template<typename T>
+    T get_next_player(T player){}
+
+    virtual int get_num_players(){}
+
+    virtual int get_turn(){}
+
 };

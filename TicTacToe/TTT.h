@@ -33,9 +33,9 @@ public:
 
     int play_next(string move) override;
 
-    int get_turn();
+    int get_turn() override;
 
-    int get_num_players();
+    int get_num_players() override;
 
     template <typename T>
     Vector<T> get_player_notations();
