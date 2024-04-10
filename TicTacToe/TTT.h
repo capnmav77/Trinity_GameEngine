@@ -15,6 +15,7 @@ private:
     Vector<int> player_notation;
     int turn = 0;
 
+    int process_move(string input);
 
 public:
     typedef int MOVE;
@@ -29,7 +30,6 @@ public:
         board.init();
     }
 
-    int process_move(string input);
 
     void render_board() ;
 
@@ -43,7 +43,6 @@ public:
 
     int get_turn() ;
 
-    TTTBoard get_board();
 
     template <typename T>
     Vector<T> get_player_notations();
@@ -56,20 +55,43 @@ public:
         return board.simulate<int>(loc,turn,board);
     }
 
+    void simulate(int loc, int turn,int check);
+
     Vector<int> get_valid_moves(){
         return board.get_valid_moves();
     }
 
 };
 
+//State = 0 // before start
+//state =1 //simulate
+//state =2 //end
+void TTT::simulate(int loc,int turn,int state)
+{
+    static TTTBoard tempBoard = board;
+    if(state==0)
+    {
+        tempBoard = board;
+    }
+    else if(state==1)
+    {
+        board = tempBoard;
+    }
+    else if(state==2)
+    {
+        board.move(loc, turn);
+    }
+    else if(state==3)
+    {
+        board.unmove(loc);
+    }
+}
+
 int TTT::process_move(string input)
 {
     return std::stoi(input);
 }
 
-TTTBoard TTT::get_board(){
-    return board;
-}
 
 // beautify the board display
 void TTT::render_board() 
@@ -85,7 +107,6 @@ void TTT::start_game()
 
 void TTT::init(){
     board.init();
-
 }
 
 int TTT::game_over()

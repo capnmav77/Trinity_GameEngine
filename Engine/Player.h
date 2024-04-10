@@ -40,13 +40,13 @@ class HumanPlayer : public Player
 };
 
 
-template <typename game>
+template <typename GAME>
 class AiPlayer : public Player {
 private:
-    AI<game>& ai; // Reference to the Ai object
+    AI<GAME>& ai; // Reference to the Ai object
 
 public:
-    AiPlayer(AI<game>& ai) : ai(ai) {} // Constructor takes Ai object by reference
+    AiPlayer(AI<GAME>& ai) : ai(ai) {} // Constructor takes Ai object by reference
 
     void initialize_player() override {
         // Nothing to initialize for AiPlayer

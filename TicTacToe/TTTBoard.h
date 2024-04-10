@@ -29,9 +29,6 @@ public:
     
 
     Vector<int> get_valid_moves() {
-        //display the board 
-        // cout<<"Getting valid moves for the board : "<<endl;
-        // display();
         Vector<int> valid_moves;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {

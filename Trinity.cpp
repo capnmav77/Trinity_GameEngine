@@ -27,7 +27,7 @@ int main() {
     if(gamePack.game_over() != -1){
       break;
     }
-    move = ai.get_best_move();
+    move = ai.get_move();
     gamePack.play_next(move);
   }
 
