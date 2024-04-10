@@ -12,6 +12,18 @@
 
 void TTT_Plugin()
 {
+  //clear the screen
+  std::cout << "\033[2J\033[1;1H";
+
+  //display ascii art 
+  std::cout << "  _______ _        _______           _______         " << endl;
+  std::cout << " |__   __(_)      |__   __|         |__   __|        " << endl;
+  std::cout << "    | |   _  ___     | | __ _  ___     | | ___   ___ " << endl;
+  std::cout << "    | |  | |/ __|    | |/ _` |/ __|    | |/ _ \\ / _ \\" << endl;
+  std::cout << "    | |  | | (__     | | (_| | (__     | | (_) |  __/" << endl;
+  std::cout << "    |_|  |_|\\___|    |_|\\__,_|\\___|    |_|\\___/ \\___|" << endl;
+  
+
   std::cout<<"Which Mode you will like "<<std::endl;
 
   std::cout<<"1.  Human v/s Human "<<std::endl;
