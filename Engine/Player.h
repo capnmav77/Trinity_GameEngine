@@ -2,19 +2,21 @@
 #include <iostream>
 #include "Ai.h"
 
-
+// Player Class
 class Player
 {
 protected:
     std::string name;
     //int sequence; ? - what is this for? ans: to keep track of the sequence of the player i.e 1st, 2nd, 3rd etc
 public:
+    //virtual functions that will be implemented by the derived classes
     virtual void initialize_player(int turn) = 0;
     virtual std::string get_move() = 0;
     virtual std::string get_name() = 0;
 };
 
 
+// HumanPlayer Derived from Player
 class HumanPlayer : public Player 
 {
     public:
@@ -39,6 +41,7 @@ class HumanPlayer : public Player
 };
 
 
+// Aiplayer Derived from Player
 template <typename GAME>
 class AIPlayer : public Player{
     AI<GAME> *ai;

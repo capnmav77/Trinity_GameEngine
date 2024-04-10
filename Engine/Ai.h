@@ -19,6 +19,7 @@
 // Now, apply the concept as a constraint on the AI class template
 template <typename GAME>
 class AI {
+
 private:
     //GAME* game is a pointer to the game object that the AI will play
     GAME* game;
@@ -26,12 +27,55 @@ private:
     //AI Turn is the turn of the AI
     typename GAME::PLAYER_NOTATION AI_Turn;
     
-
     //exploration factor is the parameter that controls the exploration vs exploitation tradeoff in the UCB formula
     double exploration_factor = 0.5;
 
+
+    //Function to simulate the game
+    template<typename T,typename U>
+    Vector<int> simulate_game(T move,U turn) {
+
+        //make a move in the game
+        game->simulate(move,turn);
+        Vector<int> result(3, 0);
+        Vector<typename GAME::MOVE> valid_moves = game->get_valid_moves();
+        int terminal_state = game->get_game_state();
+        //checking for terminal state
+        if(terminal_state != -1){
+            if(terminal_state == AI_Turn){
+                result[0] = 1;
+            }
+            else if(terminal_state == -2){
+                result[1] = 1;
+            }
+            else{
+                result[2] = 1;
+            }
+            game->simulate(move,SIMULATE_STATE::UNMOVE);
+            return result;
+        }
+
+        //checking for draw
+        if(valid_moves.size() == 0){
+            result[1] = 1;
+            game->simulate(move,SIMULATE_STATE::UNMOVE);
+            return result;
+        }
+
+        //Simulate the game for each valid move
+        for (auto _move : valid_moves) {
+            Vector<int> recursive_result = simulate_game(_move,game->get_next_player(turn));
+            result[0] += recursive_result[0]; // Wins from recursive simulation
+            result[1] += recursive_result[1]; // Draws from recursive simulation
+            result[2] += recursive_result[2]; // Losses from recursive simulation
+        }
+
+        // Undo the move before returning
+        game->simulate(move,SIMULATE_STATE::UNMOVE);
+        return result;
+    }
+
 public:
-    
     //Constructor for the AI class
     AI(GAME* game ) : game(game) {}
 
@@ -88,47 +132,5 @@ public:
         game->simulate(SIMULATE_STATE::LOAD_BOARD);
         return move;
     }
-
-
-    //Function to simulate the game
-    template<typename T,typename U>
-    Vector<int> simulate_game(T move,U turn) {
-        game->simulate(move,turn);
-        Vector<int> result(3, 0);
-        Vector<typename GAME::MOVE> valid_moves = game->get_valid_moves();
-        int terminal_state = game->get_game_state();
-        
-        if(terminal_state != -1){
-            if(terminal_state == AI_Turn){
-                result[0] = 1;
-            }
-            else if(terminal_state == -2){
-                result[1] = 1;
-            }
-            else{
-                result[2] = 1;
-            }
-            game->simulate(move,SIMULATE_STATE::UNMOVE);
-            return result;
-        }
-
-
-        if(valid_moves.size() == 0){
-            result[1] = 1;
-            game->simulate(move,SIMULATE_STATE::UNMOVE);
-            return result;
-        }
-
-
-        for (auto _move : valid_moves) {
-            Vector<int> recursive_result = simulate_game(_move,game->get_next_player(turn));
-            result[0] += recursive_result[0]; // Wins from recursive simulation
-            result[1] += recursive_result[1]; // Draws from recursive simulation
-            result[2] += recursive_result[2]; // Losses from recursive simulation
-        }
-
-        // Undo the move before returning
-        game->simulate(move,SIMULATE_STATE::UNMOVE);
-        return result;
-    }
+  
 };

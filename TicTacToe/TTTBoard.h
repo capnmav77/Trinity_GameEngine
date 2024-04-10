@@ -12,33 +12,32 @@ private:
 
 
 public:
+
+    //function to initialize the board
     void init();
+
+    //function to display the board
     void display();
 
+    //function to get the valid moves
+    Vector<int> get_valid_moves();
+
+    //function to check if a move is valid
     template <typename U>
     bool playable(U loc);
 
+    // function to check for terminal state
     template <typename U>
     U check_terminal();
 
+    //function to move the player
     template <typename U, typename V>
     void move(U loc, V turn);
 
+    //function to unmove the player i.e setting the move to -1
     template <typename U>
     void unmove(U loc);
-    
 
-    Vector<int> get_valid_moves() {
-        Vector<int> valid_moves;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (game_board[i][j] == -1) {
-                    valid_moves.push_back(i * 3 + j + 1);
-                }
-            }
-        }
-        return valid_moves;
-    }
 };
     
 
@@ -139,6 +138,8 @@ int TTTBoard::check_terminal<int>()
     return -1;
 }
 
+
+
 template <>
 bool TTTBoard::playable<int>(int loc)
 {
@@ -150,52 +151,15 @@ bool TTTBoard::playable<int>(int loc)
     return game_board[row][col] == -1;
 }
 
-/*
-template <>
-Vector<int> TTTBoard::get_valid_moves<int>()
-{
+
+ Vector<int> TTTBoard::get_valid_moves() {
     Vector<int> valid_moves;
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            if (game_board[i][j] == -1)
-            {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (game_board[i][j] == -1) {
                 valid_moves.push_back(i * 3 + j + 1);
             }
         }
     }
     return valid_moves;
 }
-*/
-
-// template <typename T>
-// Vector<int> TTTBoard::simulate(T loc, int turn) {
-//     cout<<"Simulating"<<endl;
-//     TTTBoard simboard(*this); // Create a copy of the current board
-//     simboard.move(loc, turn); // Make the move on the copy
-//     Vector<int> result(3, 0);
-
-//     if (simboard.check_terminal<int>() != -1) {
-//         if (simboard.check_terminal<int>() == turn) {
-//             result[0] += 1;
-//         } else if (simboard.check_terminal<int>() == -2) {
-//             result[2] += 1;
-//         } else {
-//             result[1] = 1;
-//         }
-//     } else {
-//         cout<<"Getting valid moves"<<endl;
-//         Vector<int> valid_moves = simboard.get_valid_moves();
-//         //get the number of players: 
-//         int num_players = 2;
-//         for (auto move : valid_moves) {
-//             Vector<int> new_result = simulate(move, (turn + 1) % num_players);
-//             for (int i = 0; i < 3; ++i) {
-//                 result[i] += new_result[i];
-//             }
-//         }
-//     }
-
-//     return result;
-// }

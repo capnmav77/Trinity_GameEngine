@@ -7,24 +7,42 @@
 using namespace std;
 
 
-
 template <typename GAME, typename... Players>
 class GameEngine
 {
-    static_assert((IsPointerToPlayerDerived<Players>::value && ...), "All Players must be pointers to classes derived from Player");
 private:
+    // Check if all Players are pointers to classes derived from Player
+    static_assert((IsPointerToPlayerDerived<Players>::value && ...), "All Players must be pointers to classes derived from Player");
+
+    // GAME object that is a pointer to the Game class
     GAME* game;
+    
+    // Vector of pointers to Player objects
     Vector<Player*> players;
+
+    // Number of players and the current turn variable
     int num_players;
     int turn;
 
+    // Function to end the game
+    void end_game(int condition)
+    {
+        if(condition != -2){
+            std::cout<<"Player "<<players[condition]->get_name()<<" wins"<<std::endl;
+        }
+        else{
+            std::cout<<"It's a draw"<<std::endl;
+        }
+    }
+
 public:
+    // Constructor to initialize the game and players
     GameEngine(GAME* game,Players... players) : game(game) ,num_players(sizeof...(players)), turn(0) {
         (this->players.push_back(players),...);
        
     }
 
-
+    // Function to start the game loop
     void game_loop()
     {
         int a;
@@ -40,6 +58,8 @@ public:
                     }
                 }
                 int terminal_status = game->get_game_state();
+
+                //debugging logs:
                 cout<<"terminal status and rendered board"<<terminal_status<<endl;
                 game->render_board();
                 cout<<"rendered board"<<endl;
@@ -50,16 +70,6 @@ public:
                     return; // Exit the loop when game is over
                 }
             }
-        }
-    }
-
-    void end_game(int condition)
-    {
-        if(condition != -2){
-            std::cout<<"Player "<<players[condition]->get_name()<<" wins"<<std::endl;
-        }
-        else{
-            std::cout<<"It's a draw"<<std::endl;
         }
     }
 };
