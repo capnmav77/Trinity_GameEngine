@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-
 #include "Ai.h"
 
 
@@ -41,23 +40,24 @@ class HumanPlayer : public Player
 
 
 template <typename GAME>
-class AiPlayer : public Player {
-private:
-    AI<GAME>& ai; // Reference to the Ai object
-
+class AIPlayer : public Player{
+    AI<GAME> *ai;
 public:
-    AiPlayer(AI<GAME>& ai) : ai(ai) {} // Constructor takes Ai object by reference
+    AIPlayer(GAME* game) :Player() {
+        ai =  new AI<GAME>(game);
+    }   
+        
 
     void initialize_player() override {
-        // Nothing to initialize for AiPlayer
+        this->name = "AI";
     }
 
     std::string get_name() override {
-        return "AiPlayer";
+        return name;
     }
 
     std::string get_move() override {
-        int move = ai.get_best_move();
-        return std::to_string(move);
+        std::string move = ai->decide_move();
+        return move;
     }
 };

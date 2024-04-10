@@ -1,12 +1,13 @@
-#pragma once //meaning include this file only once
+#pragma once // meaning include this file only once
 #include "../MySTL/vector.h"
 #include "../Engine/GamePack.h"
 #include "../Engine/GameBoard.h"
 #include <iostream>
 #include <string>
 #include "./TTTBoard.h"
+#include "../Engine/State.h"
 
-// rant = reminder to beat up avanish for writing the below code , what the f is this , why do you fucking need player notation , 
+// rant = reminder to beat up avanish for writing the below code , what the f is this , why do you fucking need player notation ,
 
 class TTT : public GamePack<2>
 {
@@ -22,27 +23,19 @@ public:
     typedef int PLAYER_NOTATION;
     typedef int STATE;
 
-    TTT()
-    { 
-        for (int i=0 ; i<num_players ; ++i){
-            player_notation.push_back(i);
-        }
-        board.init();
-    }
-
-
-    void render_board() ;
+    void render_board();
 
     void start_game() override;
 
-    int game_over() override;
+    int get_game_state() override;
 
     void init() override;
 
     int play_next(string move) override;
 
-    int get_turn() ;
+    int get_turn();
 
+    int get_num_players();
 
     template <typename T>
     Vector<T> get_player_notations();
@@ -50,41 +43,48 @@ public:
     template <typename U>
     U get_winner();
 
-    //getting the valid_moves from TTTBoard
-    Vector<int> simulate(int loc, int turn) {
-        return board.simulate<int>(loc,turn,board);
+    void simulate(SIMULATE_STATE state);
+    void simulate(TTT::MOVE loc, TTT::PLAYER_NOTATION turn);
+
+    TTT()
+    {
+        for (int i = 0; i < num_players; ++i)
+        {
+            player_notation.push_back(i);
+        }
+        board.init();
     }
 
-    void simulate(int loc, int turn,int check);
+    TTT::PLAYER_NOTATION get_next_player(TTT::PLAYER_NOTATION player)
+    {
+        return (player+1)%2;
+    }
 
-    Vector<int> get_valid_moves(){
+   
+    Vector<int> get_valid_moves()
+    {
         return board.get_valid_moves();
     }
-
 };
 
-//State = 0 // before start
-//state =1 //simulate
-//state =2 //end
-void TTT::simulate(int loc,int turn,int state)
+
+void TTT::simulate(SIMULATE_STATE state)
 {
     static TTTBoard tempBoard = board;
-    if(state==0)
-    {
+    cout<<state<<endl;
+    if (state == 0)
         tempBoard = board;
-    }
-    else if(state==1)
-    {
+    else if (state == 1)
         board = tempBoard;
-    }
-    else if(state==2)
-    {
+}
+
+void TTT::simulate(TTT::MOVE loc, TTT::PLAYER_NOTATION turn)
+{
+
+    if (turn != -1)
         board.move(loc, turn);
-    }
-    else if(state==3)
-    {
+    else
         board.unmove(loc);
-    }
 }
 
 int TTT::process_move(string input)
@@ -92,9 +92,8 @@ int TTT::process_move(string input)
     return std::stoi(input);
 }
 
-
 // beautify the board display
-void TTT::render_board() 
+void TTT::render_board()
 {
     board.display();
 }
@@ -105,11 +104,12 @@ void TTT::start_game()
     render_board();
 }
 
-void TTT::init(){
+void TTT::init()
+{
     board.init();
 }
 
-int TTT::game_over()
+int TTT::get_game_state()
 {
     return board.check_terminal<TTT::STATE>();
 }
@@ -119,6 +119,7 @@ int TTT::play_next(string input)
     int move = process_move(input);
     if (!board.playable<TTT::MOVE>(move))
     {
+        std::cout<<move<<std::endl;
         cout << "Invalid Move" << endl;
 
         return 0;
@@ -131,13 +132,15 @@ int TTT::play_next(string input)
     return 1;
 }
 
-
 int TTT::get_turn()
 {
     return turn;
 }
 
-
+int TTT::get_num_players()
+{
+    return num_players;
+}
 
 template <typename U>
 U TTT::get_winner()

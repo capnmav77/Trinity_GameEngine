@@ -20,12 +20,11 @@ public:
     template <typename U>
     U get_winner();
 
-    template<typename T>
+    template <typename T>
     Vector<T> get_valid_moves();
-    
-    virtual void init(){}
-    virtual void start_game(){}
+
+    virtual void init() {}
+    virtual void start_game() {}
     virtual int play_next(string move) = 0;
-    virtual int game_over()=0;
-    
+    virtual int get_game_state() = 0;
 };

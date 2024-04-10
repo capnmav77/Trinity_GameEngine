@@ -39,57 +39,8 @@ public:
         }
         return valid_moves;
     }
-
-    template<typename T>
-    Vector<int> simulate(int loc, int turn, TTTBoard& simboard) {
-        // Make the move on the current board
-        simboard.move(loc, turn); 
-
-        Vector<int> result(3, 0);
-        int terminal_state = simboard.check_terminal<int>();
-
-        if(terminal_state != -1){
-            if(terminal_state == 1){
-                result[0] = 1;
-            }
-            else if(terminal_state == -2){
-                result[1] = 1;
-            }
-            else{
-                result[2] = 1;
-            }
-            // Undo the move before returning
-            simboard.unmove(loc);
-            return result;
-        }
-
-        // Get valid moves
-        Vector<int> valid_moves = simboard.get_valid_moves();
-        if(valid_moves.size() == 0){
-            result[1] = 1;
-            // Undo the move before returning
-            simboard.unmove(loc);
-            return result;
-        }
-
-        // Simulate each possible move
-        for (auto move : valid_moves) {
-            // Recursively simulate the move without copying the board
-            Vector<int> recursive_result = this->simulate<int>(move, (turn + 1) % 2, simboard);
-            result[0] += recursive_result[0]; // Wins from recursive simulation
-            result[1] += recursive_result[1]; // Draws from recursive simulation
-            result[2] += recursive_result[2]; // Losses from recursive simulation
-        }
-
-        // Undo the move before returning
-        simboard.unmove(loc);
-        return result;
-    }
-
-
-
 };
-
+    
 
 void TTTBoard::init()
 {
