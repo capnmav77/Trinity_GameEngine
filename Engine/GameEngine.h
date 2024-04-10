@@ -35,7 +35,6 @@ public:
             {
                 while(true){
                     std::string move = players[i]->get_move();
-                    cin>>a;
                     if(game->play_next(move)){
                         break;
                     }

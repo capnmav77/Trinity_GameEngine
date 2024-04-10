@@ -43,32 +43,15 @@ int main()
   play();
 
 
-  // TTT gamePack ;
-  // HumanPlayer h1,h2;
-  // //initializing the Aiplayer with the ai object 
-  // AIPlayer<TTT> ai_1(&gamePack);
-  // AIPlayer<TTT> ai_2(&gamePack);
-  // ai_1.initialize_player();
-  // ai_2.initialize_player();
-  // // h1.initialize_player();
-  // //AiPlayer<Ai<TTT>> a1(ai); // call in the AiPlayer constructor and pass the reference of the ai object
-  // //GameEngine<TTT,HumanPlayer*,AiPlayer<Ai<TTT>>*> engine1(gamePack,&h1,&a1);
-
-  // int a;
-  // while(gamePack.get_game_state() == -1){
-  //   string move = ai_1.get_move();
-  //   gamePack.play_next(move);
-  //   cin>>a;
-  //   if(gamePack.get_game_state() != -1){
-  //     break;
-  //   }
-  //   move = ai_2.get_move();
-  //   gamePack.play_next(move);
-  //   cin>>a;
-  //   if(gamePack.get_game_state() != -1){
-  //     break;
-  //   }
-  // }
+  /*
+  
+  1. Beutify The Menues and play events, use system cls or clear to remove old boards
+  2. Add comments 
+  3. Private and protected member of the class
+  4. Concepts and constraints
+  5. unordered_map implemntation
+  
+  */
 
   return 0;
 }

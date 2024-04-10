@@ -71,7 +71,6 @@ public:
 void TTT::simulate(SIMULATE_STATE state)
 {
     static TTTBoard tempBoard = board;
-    cout<<state<<endl;
     if (state == 0)
         tempBoard = board;
     else if (state == 1)
