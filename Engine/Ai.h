@@ -35,33 +35,39 @@ public:
         // char c;
         // std::cin >> c;
 
-        Vector<double> win_rate;
+        Vector<double> UBC_Rates;
         for (auto move : valid_moves) {
             // Simulate the move
             Vector<int> result = game.simulate(move, 1);
-            cout<<"result[0] : "<<result[0]<<" result[1] : "<<result[1]<<" result[2] : "<<result[2]<<endl;
+            
             int total_games = result[0] + result[1] + result[2];
+
+            cout<<"result[0] : "<<result[0]<<" result[1] : "<<result[1]<<" result[2] : "<<result[2]<<" Total Games: "<<total_games<<endl;
             
             // Calculate UCB1 (Upper Confidence Bound)
             // double UCB = (result[0] * 2.0 / total_games) +
             //              sqrt(2 * log(total_games) / total_games);
-            double UCB = result[0]*1.0/total_games + result[1]*0.8/total_games - result[2]*2.0/total_games;
+            // double UCB = (result[0]*2.0 + result[1]*1.5 - result[2]*1.0)/total_games;
             
-            cout << "Move: " << move << " Win rate: " << result[0] * 1.0 / total_games << " UCB: " << UCB << endl;
+            //cout << "Move: " << move << " Win rate: " << result[0] * 1.0 / total_games << " UCB: " << UCB << endl;
+            double exploration_factor = 0.5;
+            double UCB = ((result[0]*2.0 + result[1]*1.0 - result[2]*1.0) / total_games) + sqrt(2 * log(total_games) / (total_games * exploration_factor));
+            cout<<"Move : "<<move<<" UCB : "<<UCB<<endl;
+
 
             //cin>>c;
-            win_rate.push_back(UCB);
+            UBC_Rates.push_back(UCB);
         }
 
-        for(auto wins : win_rate){
+        for(auto wins : UBC_Rates){
             cout<<wins<<" ";
         }
         // cin>>c;
 
         // Find the move with the highest UCB
         int max_index = 0 ;
-        for(int i = 0 ; i < win_rate.size() ; i++){
-            if(win_rate[i] > win_rate[max_index]){
+        for(int i = 0 ; i < UBC_Rates.size() ; i++){
+            if(UBC_Rates[i] > UBC_Rates[max_index]){
                 max_index = i;
             }
         }
