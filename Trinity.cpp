@@ -31,7 +31,17 @@ void play()
     break;
   }
 
-  game_collection["Tic Tac Toe"]();
+  if(wish == 1)
+  {
+    std::cout << "You have selected Connect 4" << std::endl;
+    game_collection["Connect 4"]();
+  }
+  else if(wish == 2)
+  {
+    std::cout << "You have selected Tic Tac Toe" << std::endl;
+    game_collection["Tic Tac Toe"]();
+  }
+
 }
 
 int main()
@@ -48,6 +58,8 @@ int main()
   cout<<"                              |___/|_|                   "<<endl;
 
   game_collection["Tic Tac Toe"] = TTT_Plugin;
+  game_collection["Connect 4"] = Connect4_Plugin;
+
   play();
 
 
