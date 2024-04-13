@@ -6,6 +6,8 @@
 #include "Engine/GameEngine.h"
 #include "TicTacToe/TTT.h"
 #include "TicTacToe/TTTBoard.h"
+#include "Connect4/Connect4.h"
+#include "Connect4/Connect4Board.h"
 #include <unordered_map>
 
 
@@ -68,6 +70,58 @@ void TTT_Plugin()
     ai_1.initialize_player(1);
     ai_2.initialize_player(2);
     GameEngine<TTT,AIPlayer<TTT>*,AIPlayer<TTT>*> gameEngine(&gamePack,&ai_1,&ai_2); 
+    gameEngine.game_loop();
+  }
+
+}
+
+void Connect4_Plugin()
+{
+  
+  std::cout<<"Which Mode you will like "<<std::endl;
+
+  std::cout<<"1.  Human v/s Human "<<std::endl;
+  std::cout<<"2.  AI v/s Human "<<std::endl;
+  std::cout<<"3.  Human v/s AI "<<std::endl;
+  std::cout<<"4.  AI v/s AI "<<std::endl;
+
+  int wish ;
+  std::cout<<"Wish : "<<std::endl;
+  cin>>wish;
+
+  Connect4 gamePack;
+  // HumanPlayer h1, h2;
+  // AIPlayer<TTT> ai_1(&gamePack),ai_2(&gamePack);
+  
+  if(wish == 1)
+  {
+    HumanPlayer h1, h2;
+    h1.initialize_player(1);
+    h2.initialize_player(2);
+    GameEngine<Connect4,HumanPlayer*,HumanPlayer*> gameEngine(&gamePack,&h1,&h2); 
+    gameEngine.game_loop();
+  }
+  else if(wish ==2){
+    HumanPlayer h2;
+    AIPlayer<Connect4> ai_1(&gamePack);
+    ai_1.initialize_player(1);
+    h2.initialize_player(2);
+    GameEngine<Connect4,AIPlayer<Connect4>*,HumanPlayer*> gameEngine(&gamePack,&ai_1,&h2);
+    gameEngine.game_loop(); 
+  }
+  else if(wish ==3){
+    HumanPlayer h1;
+    AIPlayer<Connect4> ai_2(&gamePack);
+    h1.initialize_player(1);
+    ai_2.initialize_player(2);
+    GameEngine<Connect4,HumanPlayer*,AIPlayer<Connect4>*> gameEngine(&gamePack,&h1,&ai_2); 
+    gameEngine.game_loop();
+  }
+  else{
+    AIPlayer<Connect4> ai_1(&gamePack),ai_2(&gamePack);
+    ai_1.initialize_player(1);
+    ai_2.initialize_player(2);
+    GameEngine<Connect4,AIPlayer<Connect4>*,AIPlayer<Connect4>*> gameEngine(&gamePack,&ai_1,&ai_2); 
     gameEngine.game_loop();
   }
 

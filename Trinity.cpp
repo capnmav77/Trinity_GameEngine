@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Engine/GameEngine.h"
+#include "MySTL/unordered_map.h"
 #include "GameList.h"
+
 
 // #include "Engine/Player.h"
 // #include "Engine/Ai.h"
@@ -17,12 +19,10 @@ void play()
   int wish;
   while (true)
   {
-    int count = 1;
-    for (auto game : game_collection)
-    {
-      std::cout << count << "  " << game.first << std::endl;
-      ++count;
-    }
+    int count = game_collection.size();
+
+    cout << "1. Tic Tac Toe" << endl;
+    cout << "2. Connect 4" << endl;
 
     cin >> wish;
 
@@ -31,7 +31,14 @@ void play()
     break;
   }
 
-  game_collection["Tic Tac Toe"]();
+  if(wish == 1)
+  {
+    game_collection["Tic Tac Toe"]();
+  }
+  else if(wish == 2)
+  {
+    game_collection["Connect 4"]();
+  }
 }
 
 int main()
@@ -47,8 +54,12 @@ int main()
   cout<<"                               __/ | |                   "<<endl;
   cout<<"                              |___/|_|                   "<<endl;
 
+  //Unordered_map<std::string, void (*)()> game_collection;
+
   game_collection["Tic Tac Toe"] = TTT_Plugin;
+  game_collection["Connect 4"] = Connect4_Plugin;
   play();
+  
 
 
   /*
