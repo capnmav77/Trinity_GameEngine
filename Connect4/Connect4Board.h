@@ -113,6 +113,7 @@ int Connect4Board::check_terminal<int>()
     //return 0 -> player 1 , 1->player2 , -2-> draw , -1 -> game not over
 
     //check for a draw
+    //cout<<"Remaining moves :"<<get_remaining_moves()<<endl;
     if(get_remaining_moves() == 0){
         return -2;
     }

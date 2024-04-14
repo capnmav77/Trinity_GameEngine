@@ -48,6 +48,8 @@ class AIPlayer : public Player{
 public:
     AIPlayer(GAME* game) :Player() {
         ai =  new AI<GAME>(game);
+        game->display_player_notations();
+        cout<<endl;
     }   
         
 

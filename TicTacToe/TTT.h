@@ -47,6 +47,12 @@ public:
     
     void simulate(TTT::MOVE loc, TTT::PLAYER_NOTATION turn);
 
+    void display_player_notations(){
+        for(auto i:player_notation){
+            cout<<i<<"_";
+        }
+    }
+
     TTT()
     {
         for (int i = 0; i < num_players; ++i)
@@ -59,6 +65,10 @@ public:
     TTT::PLAYER_NOTATION get_next_player(TTT::PLAYER_NOTATION player)
     {
         return (player+1)%2;
+    }
+    TTT::PLAYER_NOTATION get_current_player(int turn)
+    {
+        return player_notation[turn];
     }
 
    
@@ -182,3 +192,4 @@ Vector<TTT::PLAYER_NOTATION> TTT::get_player_notations<TTT::PLAYER_NOTATION>()
 {
     return player_notation;
 }
+

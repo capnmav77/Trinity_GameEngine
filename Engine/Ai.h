@@ -6,17 +6,7 @@
 #include "../MySTL/vector.h"
 #include "GameBoard.h"
 #include "State.h"
-// #include <concepts>
 
-// template<typename T>
-// concept GameConcept = requires(T game) {
-//     { game.simulate(std::declval<typename T::STATE>()) } -> std::same_as<void>;
-//     { T::MOVE } -> std::same_as<typename T::MOVE>;
-//     { T::PLAYER_NOTATION } -> std::same_as<typename T::PLAYER_NOTATION>;
-//     { T::STATE } -> std::same_as<typename T::STATE>;
-// };
-
-// Now, apply the concept as a constraint on the AI class template
 template <typename GAME>
 class AI {
 
@@ -25,53 +15,57 @@ private:
     GAME* game;
 
     //AI Turn is the turn of the AI
-    typename GAME::PLAYER_NOTATION AI_Turn;
+    typename GAME::PLAYER_NOTATION AI_Turn = 0;
     
     //exploration factor is the parameter that controls the exploration vs exploitation tradeoff in the UCB formula
     double exploration_factor = 0.5;
 
 
     //Function to simulate the game
-    template<typename T,typename U>
-    Vector<int> simulate_game(T move,U turn) {
-
-        //make a move in the game
-        game->simulate(move,turn);
+    template<typename T, typename U>
+    Vector<int> simulate_game(T move, U turn) {
+        // Make a move in the game
+        game->simulate(move, turn);
         Vector<int> result(3, 0);
         Vector<typename GAME::MOVE> valid_moves = game->get_valid_moves();
         int terminal_state = game->get_game_state();
-        //checking for terminal state
-        if(terminal_state != -1){
-            if(terminal_state == AI_Turn){
-                result[0] = 1;
+
+        // Checking for terminal state
+        if (terminal_state != -1) {
+            if (terminal_state == AI_Turn) {
+                result[0] = 1;  // AI wins
             }
-            else if(terminal_state == -2){
-                result[1] = 1;
+            else if (terminal_state == -2) {
+                result[1] = 1;  // Draw
             }
-            else{
-                result[2] = 1;
+            else {
+                result[2] = 1;  // Opponent wins
             }
-            game->simulate(move,SIMULATE_STATE::UNMOVE);
+            game->simulate(move, SIMULATE_STATE::UNMOVE);
             return result;
         }
 
-        //checking for draw
-        if(valid_moves.size() == 0){
-            result[1] = 1;
-            game->simulate(move,SIMULATE_STATE::UNMOVE);
+        // Checking for draw
+        if (valid_moves.size() == 0) {
+            result[1] = 1;  // Draw
+            game->simulate(move, SIMULATE_STATE::UNMOVE);
             return result;
         }
 
-        //Simulate the game for each valid move
+        // Simulate the game for each valid move
         for (auto _move : valid_moves) {
-            Vector<int> recursive_result = simulate_game(_move,game->get_next_player(turn));
-            result[0] += recursive_result[0]; // Wins from recursive simulation
-            result[1] += recursive_result[1]; // Draws from recursive simulation
-            result[2] += recursive_result[2]; // Losses from recursive simulation
+            // Get the opponent's turn
+            typename GAME::PLAYER_NOTATION opponent_turn = game->get_next_player(turn);
+
+            // Recursive simulation for the opponent's move
+            Vector<int> recursive_result = simulate_game(_move, opponent_turn);
+            result[0] += recursive_result[0]; // Losses for the AI are wins for the opponent
+            result[1] += recursive_result[1]; // Draws for both
+            result[2] += recursive_result[2]; // Wins for the AI are losses for the opponent
         }
 
         // Undo the move before returning
-        game->simulate(move,SIMULATE_STATE::UNMOVE);
+        game->simulate(move, SIMULATE_STATE::UNMOVE);
         return result;
     }
 
@@ -80,8 +74,17 @@ public:
     AI(GAME* game ) : game(game) {}
 
     //Function to set the AI's turn
-    void set_turn(typename GAME::PLAYER_NOTATION turn) {
-        AI_Turn = turn;
+    void set_turn(int turn) {
+        if(turn == 1){
+            AI_Turn = 0;
+        }
+        else if(turn == 2){
+            AI_Turn = 1;
+        }
+        else{
+            cout<<"Invalid Turn"<<endl;
+        }
+        cout<<"AI TURN IS "<<AI_Turn<<endl;
     }
 
 
@@ -108,13 +111,13 @@ public:
         for(auto moves : valid_moves){
 
             // Simulate the game for each valid move and calculate the UCB value for each move
-            Vector<int> result = simulate_game<typename GAME::MOVE,typename GAME::PLAYER_NOTATION>(moves,1);
+            Vector<int> result = simulate_game<typename GAME::MOVE,typename GAME::PLAYER_NOTATION>(moves,AI_Turn);
             int total_games = result[0] + result[1] + result[2];
 
             cout<<"FOR MOVE " << moves << " WINS ARE " << result[0] << " DRAWS ARE " << result[1] << " LOSSES ARE " << result[2] <<"Tots :"<<total_games<<endl;
 
             //modified version of the UBC , change it according to prefs
-            double UCB = ((result[0]*3.0 + result[1]*2.0 - result[2]*3.0)/total_games) + sqrt(2 * log(total_games) / (total_games * exploration_factor));
+            double UCB = ((result[0]*3.0 + result[1]*2.0 - result[2]*3.0)/total_games);// + sqrt(2 * log(total_games) / (total_games * exploration_factor));
             cout<<"FOR MOVE " << moves << " UCB IS " << UCB << endl;
             UBC_Rates.push_back(UCB);
         }

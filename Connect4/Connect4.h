@@ -60,11 +60,21 @@ public:
     {
         return (player+1)%2;
     }
+    Connect4::PLAYER_NOTATION get_current_player(int turn)
+    {
+        return player_notation[turn];
+    }
 
    
     Vector<int> get_valid_moves()
     {
         return board.get_valid_moves();
+    }
+    
+    void display_player_notations(){
+        for(auto i:player_notation){
+            cout<<i<<"_";
+        }
     }
 };
 

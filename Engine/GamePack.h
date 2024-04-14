@@ -55,7 +55,7 @@ public:
     virtual int get_turn() = 0;
 
     //Additional Function
-
+    virtual void display_player_notations() = 0;
     //add two functions if you need to simulate the game
     // template <typename T>
     // void simulate(T state){}
