@@ -20,17 +20,16 @@ private:
     //exploration factor is the parameter that controls the exploration vs exploitation tradeoff in the UCB formula
     double exploration_factor = 0.5;
 
-    unordered_map<std::string, Vector<int>> game_states;
+    unordered_map<string, unordered_map<int, Vector<int>>> game_states;
 
 
     //Function to simulate the game
     template<typename T, typename U>
-    Vector<int> simulate_game(T move, U turn) {
- 
+    Vector<int> simulate_game(T move, U turn, int depth) {
         string game_state = game->get_board_key();
-        if(game_states.find(game_state) != game_states.end()){
-            return game_states[game_state];
-        }
+        // if (game_states.find(game_state) != game_states.end() && game_states[game_state].find(depth) != game_states[game_state].end()) {
+        //     return game_states[game_state][depth];
+        // }
 
         game->simulate(move, turn);
         Vector<int> result(3, 0);
@@ -41,15 +40,13 @@ private:
         if (terminal_state != -1) {
             if (terminal_state == AI_Turn) {
                 result[0] = 1;  // AI wins
-            }
-            else if (terminal_state == -2) {
+            } else if (terminal_state == -2) {
                 result[1] = 1;  // Draw
-            }
-            else {
+            } else {
                 result[2] = 1;  // Opponent wins
             }
             game->simulate(move, SIMULATE_STATE::UNMOVE);
-            game_states[game_state] = result;
+            game_states[game_state][depth] = result;
             return result;
         }
 
@@ -57,7 +54,7 @@ private:
         if (valid_moves.size() == 0) {
             result[1] = 1;  // Draw
             game->simulate(move, SIMULATE_STATE::UNMOVE);
-            game_states[game_state] = result;
+            game_states[game_state][depth] = result;
             return result;
         }
 
@@ -67,7 +64,7 @@ private:
             typename GAME::PLAYER_NOTATION opponent_turn = game->get_next_player(turn);
 
             // Recursive simulation for the opponent's move
-            Vector<int> recursive_result = simulate_game(_move, opponent_turn);
+            Vector<int> recursive_result = simulate_game(_move, opponent_turn, depth + 1);
             result[0] += recursive_result[0]; // Losses for the AI are wins for the opponent
             result[1] += recursive_result[1]; // Draws for both
             result[2] += recursive_result[2]; // Wins for the AI are losses for the opponent
@@ -75,9 +72,10 @@ private:
 
         // Undo the move before returning
         game->simulate(move, SIMULATE_STATE::UNMOVE);
-        game_states[game_state] = result;
+        game_states[game_state][depth] = result;
         return result;
     }
+
 
     //overloaded function to keep the depth of the simulation at check
     template<typename T, typename U>
@@ -167,7 +165,7 @@ public:
         for(auto moves : valid_moves){
 
             // Simulate the game for each valid move and calculate the UCB value for each move
-            Vector<int> result = simulate_game<typename GAME::MOVE,typename GAME::PLAYER_NOTATION>(moves,AI_Turn,0,100000);
+            Vector<int> result = simulate_game<typename GAME::MOVE,typename GAME::PLAYER_NOTATION>(moves,AI_Turn,0);
             int total_games = result[0] + result[1] + result[2];
 
             cout<<"FOR MOVE " << moves << " WINS ARE " << result[0] << " DRAWS ARE " << result[1] << " LOSSES ARE " << result[2] <<"Tots :"<<total_games<<endl;
