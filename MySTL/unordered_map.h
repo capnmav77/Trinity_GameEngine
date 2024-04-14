@@ -26,7 +26,6 @@ public:
         for (auto& pair : buckets[index]) {
             if (keyEqual(pair.first, key)) {
                 pair.second = value;
-                size++;
                 return;
             }
         }
@@ -42,7 +41,6 @@ public:
             }
         }
         buckets[index].emplace_back(key, Value());
-        size++;
         return buckets[index].back().second;
     }
 
@@ -63,7 +61,6 @@ public:
         for (auto it = buckets[index].begin(); it != buckets[index].end(); ++it) {
             if (keyEqual(it->first, key)) {
                 buckets[index].erase(it);
-                size--;
                 return;
             }
         }
@@ -98,15 +95,22 @@ public:
         }
         return Value();
     }
-
-    int mysize() {
-        return size;
+    
+    int mysize() const {
+        int count = 0;
+        //iterate through every bucket and count the number of elements in each bucket if it is not empty
+        for (const auto& bucket : buckets) {
+            if(!bucket.empty())
+                count += 1;
+        }
+        return count;
     }
+
+    
 
 
 private:
     Hash hash;
     KeyEqual keyEqual;
     BucketList buckets;
-    int size = 0;
 };

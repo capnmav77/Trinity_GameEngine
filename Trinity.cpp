@@ -10,7 +10,7 @@
 // #include "TicTacToe/TTTBoard.h"
 
 
-void play()
+void play(Unordered_map<std::string , void(*)()> game_collection)
 {
   std::cout << "Welcome to Generic AI Engine" << std::endl;
   std::cout << "Please select the game you want to play" << std::endl;
@@ -19,14 +19,15 @@ void play()
   int wish;
   while (true)
   {
-    int count = game_collection.size();
+    int count = game_collection.mysize();
+    //cout<<"Count : "<<count<<endl;
 
     cout << "1. Tic Tac Toe" << endl;
     cout << "2. Connect 4" << endl;
 
     cin >> wish;
 
-    if (wish > game_collection.size() || wish <= 0)
+    if (wish > game_collection.mysize() || wish <= 0)
       continue;
     break;
   }
@@ -54,11 +55,11 @@ int main()
   cout<<"                               __/ | |                   "<<endl;
   cout<<"                              |___/|_|                   "<<endl;
 
-  //Unordered_map<std::string, void (*)()> game_collection;
+  Unordered_map<std::string, void (*)()> my_game_collection;
 
-  game_collection["Tic Tac Toe"] = TTT_Plugin;
-  game_collection["Connect 4"] = Connect4_Plugin;
-  play();
+  my_game_collection.insert("Tic Tac Toe", TTT_Plugin);
+  my_game_collection.insert("Connect 4", Connect4_Plugin);
+  play(my_game_collection);
   
 
 
