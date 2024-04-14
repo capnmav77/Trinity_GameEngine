@@ -26,8 +26,7 @@ private:
     //Function to simulate the game
     template<typename T, typename U>
     Vector<int> simulate_game(T move, U turn) {
-
-        
+ 
         string game_state = game->get_board_key();
         if(game_states.find(game_state) != game_states.end()){
             return game_states[game_state];
@@ -80,6 +79,52 @@ private:
         return result;
     }
 
+    //overloaded function to keep the depth of the simulation at check
+    template<typename T, typename U>
+    Vector<int> simulate_game(T move, U turn, int depth, int max_depth) {
+        // Make a move in the game
+        game->simulate(move, turn);
+        Vector<int> result(3, 0);
+        Vector<typename GAME::MOVE> valid_moves = game->get_valid_moves();
+        int terminal_state = game->get_game_state();
+
+
+        // Checking for terminal state or draw at lower depths
+        if (terminal_state != -1 || valid_moves.size() == 0) {
+            if (terminal_state == AI_Turn) {
+                result[0] = 1;  // AI wins
+            } else if (terminal_state == -2) {
+                result[1] = 1;  // Draw
+            } else {
+                result[2] = 1;  // Opponent wins
+            }
+            return result;
+        }
+
+                // Checking for maximum depth
+        if (depth == max_depth) {
+            result[1] = 1;  // Draw
+            return result;
+        }
+
+        // Simulate the game for each valid move
+        for (auto _move : valid_moves) {
+            // Get the opponent's turn
+            typename GAME::PLAYER_NOTATION opponent_turn = game->get_next_player(turn);
+
+            // Recursive simulation for the opponent's move
+            Vector<int> recursive_result = simulate_game(_move, opponent_turn, depth + 1, max_depth);
+            result[0] += recursive_result[2]; // Wins for the AI are losses for the opponent
+            result[1] += recursive_result[1]; // Draws for both
+            result[2] += recursive_result[0]; // Losses for the AI are wins for the opponent
+        }
+
+        // Undo the move before returning
+        game->simulate(move, SIMULATE_STATE::UNMOVE);
+        return result;
+    }
+
+
 public:
     //Constructor for the AI class
     AI(GAME* game ) : game(game) {}
@@ -122,7 +167,7 @@ public:
         for(auto moves : valid_moves){
 
             // Simulate the game for each valid move and calculate the UCB value for each move
-            Vector<int> result = simulate_game<typename GAME::MOVE,typename GAME::PLAYER_NOTATION>(moves,AI_Turn);
+            Vector<int> result = simulate_game<typename GAME::MOVE,typename GAME::PLAYER_NOTATION>(moves,AI_Turn,0,100000);
             int total_games = result[0] + result[1] + result[2];
 
             cout<<"FOR MOVE " << moves << " WINS ARE " << result[0] << " DRAWS ARE " << result[1] << " LOSSES ARE " << result[2] <<"Tots :"<<total_games<<endl;
