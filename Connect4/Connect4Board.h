@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include "./Connect4.h"
+#include <sstream>
+
 
 class Connect4Board : public Board<5, 5, int>
 {
@@ -37,6 +39,23 @@ public:
     //function to unmove the player i.e setting the move to -1
     template <typename U>
     void unmove(U loc);
+
+    std::string get_board_key() {
+        std::stringstream ss;
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                if (game_board[i][j] == -1) {
+                    ss << "-";
+                } else if (game_board[i][j] == 0) {
+                    ss << "O";
+                } else if (game_board[i][j] == 1) {
+                    ss << "X";
+                }
+            }
+        }
+        return ss.str();
+    }
+    
 
 };
     

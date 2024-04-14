@@ -1,3 +1,4 @@
+/ AI.h
 #pragma once
 
 #include <iostream>
@@ -5,7 +6,6 @@
 #include "../MySTL/vector.h"
 #include "GameBoard.h"
 #include "State.h"
-#include <unordered_map>
 
 template <typename GAME>
 class AI {
@@ -20,19 +20,11 @@ private:
     //exploration factor is the parameter that controls the exploration vs exploitation tradeoff in the UCB formula
     double exploration_factor = 0.5;
 
-    unordered_map<std::string, Vector<int>> game_states;
-
 
     //Function to simulate the game
     template<typename T, typename U>
     Vector<int> simulate_game(T move, U turn) {
-
-        
-        string game_state = game->get_board_key();
-        if(game_states.find(game_state) != game_states.end()){
-            return game_states[game_state];
-        }
-
+        // Make a move in the game
         game->simulate(move, turn);
         Vector<int> result(3, 0);
         Vector<typename GAME::MOVE> valid_moves = game->get_valid_moves();
@@ -50,7 +42,6 @@ private:
                 result[2] = 1;  // Opponent wins
             }
             game->simulate(move, SIMULATE_STATE::UNMOVE);
-            game_states[game_state] = result;
             return result;
         }
 
@@ -58,7 +49,6 @@ private:
         if (valid_moves.size() == 0) {
             result[1] = 1;  // Draw
             game->simulate(move, SIMULATE_STATE::UNMOVE);
-            game_states[game_state] = result;
             return result;
         }
 
@@ -76,7 +66,6 @@ private:
 
         // Undo the move before returning
         game->simulate(move, SIMULATE_STATE::UNMOVE);
-        game_states[game_state] = result;
         return result;
     }
 

@@ -76,6 +76,9 @@ public:
             cout<<i<<"_";
         }
     }
+    std::string get_board_key(){
+        return board.get_board_key();
+    }
 };
 
 
