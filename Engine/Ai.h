@@ -27,9 +27,9 @@ private:
     template<typename T, typename U>
     Vector<int> simulate_game(T move, U turn, int depth) {
         string game_state = game->get_board_key();
-        // if (game_states.find(game_state) != game_states.end() && game_states[game_state].find(depth) != game_states[game_state].end()) {
-        //     return game_states[game_state][depth];
-        // }
+        if (game_states.find(game_state) != game_states.end() && game_states[game_state].find(depth) != game_states[game_state].end()) {
+            return game_states[game_state][depth];
+        }
 
         game->simulate(move, turn);
         Vector<int> result(3, 0);
