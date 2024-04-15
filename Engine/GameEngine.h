@@ -25,8 +25,9 @@ private:
     int turn;
 
     // Function to end the game
-    void end_game(int condition)
-    {
+    void end_game()
+    {   
+        int condition = game->get_game_state();
         if(condition != -2){
             std::cout<<"Player "<<players[condition]->get_name()<<" wins"<<std::endl;
         }
@@ -58,15 +59,11 @@ public:
                     }
                 }
                 int terminal_status = game->get_game_state();
-
-                //debugging logs:
-                cout<<"terminal status and rendered board"<<terminal_status<<endl;
                 game->render_board();
-                cout<<"rendered board"<<endl;
-                //cout<<"terminal status is "<<terminal_status<<endl;
+                
                 if (terminal_status != -1)
                 {
-                    end_game(terminal_status);
+                    end_game();
                     return; // Exit the loop when game is over
                 }
             }

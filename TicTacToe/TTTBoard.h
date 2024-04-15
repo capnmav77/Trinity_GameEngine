@@ -36,30 +36,6 @@ public:
     template <typename U>
     void unmove(U loc);
 
-    std::string get_board_key()
-    {
-        std::stringstream ss;
-        for (int i = 0; i < 3; ++i)
-        {
-            for (int j = 0; j < 3; ++j)
-            {
-                if (game_board[i][j] == -1)
-                {
-                    ss << "-";
-                }
-                else if (game_board[i][j] == 0)
-                {
-                    ss << "O";
-                }
-                else if (game_board[i][j] == 1)
-                {
-                    ss << "X";
-                }
-            }
-        }
-        return ss.str();
-    }
-
     template <typename U>
     U get_board_key();
 };
@@ -151,13 +127,6 @@ int TTTBoard::check_terminal<int>()
 {
 
     // return 0 -> player 1 , 1->player2 , -2-> draw , -1 -> game not over
-
-    // check for a draw
-    if (get_remaining_moves() == 0)
-    {
-        return -2;
-    }
-
     // Check for rows
     for (int i = 0; i < 3; i++)
     {
@@ -180,6 +149,11 @@ int TTTBoard::check_terminal<int>()
     if ((game_board[1][1] != -1) && ((game_board[0][0] == game_board[1][1] && game_board[1][1] == game_board[2][2]) || (game_board[0][2] == game_board[1][1] && game_board[1][1] == game_board[2][0])))
     {
         return game_board[1][1];
+    }
+
+    if (get_remaining_moves() == 0)
+    {
+        return -2;
     }
 
     return -1;

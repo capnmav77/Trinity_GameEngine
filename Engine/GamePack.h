@@ -59,11 +59,7 @@ public:
 
     //get the board key it should be unique
     virtual std::string get_board_key() = 0;
-    //add two functions if you need to simulate the game
-    // template <typename T>
-    // void simulate(T state){}
 
-    // template<typename T,typename U>
-    // void simulate(T move,U turn){}
+
 
 };

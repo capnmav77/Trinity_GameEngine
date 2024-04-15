@@ -139,9 +139,7 @@ int Connect4Board::check_terminal<int>()
 
     //check for a draw
     //cout<<"Remaining moves :"<<get_remaining_moves()<<endl;
-    if(get_remaining_moves() == 0){
-        return -2;
-    }
+    
 
     // Check for rows
     for(int i = 0; i < row; i++){
@@ -168,6 +166,10 @@ int Connect4Board::check_terminal<int>()
                 return game_board[i][j];
             }
         }
+    }
+    
+    if(get_remaining_moves() == 0){
+        return -2;
     }
 
     return -1;

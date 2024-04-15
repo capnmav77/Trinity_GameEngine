@@ -66,6 +66,7 @@ public:
     {
         return (player+1)%2;
     }
+    
     TTT::PLAYER_NOTATION get_current_player(int turn)
     {
         return player_notation[turn];
