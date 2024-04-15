@@ -77,7 +77,7 @@ public:
         }
     }
     std::string get_board_key(){
-        return board.get_board_key();
+        return board.get_board_key<std::string>();
     }
 };
 

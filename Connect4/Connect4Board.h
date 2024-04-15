@@ -11,7 +11,8 @@
 class Connect4Board : public Board<5, 5, int>
 {
 private:
-
+int row;
+int col;
 
 public:
 
@@ -40,32 +41,37 @@ public:
     template <typename U>
     void unmove(U loc);
 
-    std::string get_board_key() {
-        std::stringstream ss;
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                if (game_board[i][j] == -1) {
-                    ss << "-";
-                } else if (game_board[i][j] == 0) {
-                    ss << "O";
-                } else if (game_board[i][j] == 1) {
-                    ss << "X";
-                }
+    template <typename U>
+    U get_board_key();
+};
+
+
+
+template<>
+std::string Connect4Board::get_board_key<std::string>(){
+    std::stringstream ss;
+    for (int i = 0; i <row; ++i) {
+        for (int j = 0; j < col; ++j) {
+            if (game_board[i][j] == -1) {
+                ss << "-";
+            } else if (game_board[i][j] == 0) {
+                ss << "O";
+            } else if (game_board[i][j] == 1) {
+                ss << "X";
             }
         }
-        return ss.str();
     }
-    
-
-};
-    
+    return ss.str();
+}   
 
 void Connect4Board::init()
 {
     Board::init();
-    for (int i = 0; i < 5; ++i)
+    this->row = Board::game_board.size();
+    this->col = Board::game_board[0].size();
+    for (int i = 0; i < row; ++i)
     {
-        for (int j = 0; j < 5; ++j)
+        for (int j = 0; j < col; ++j)
         {
             game_board[i][j] = -1;
         }
@@ -95,7 +101,7 @@ void Connect4Board::move<int, int>(int loc, int turn)
 {
     int col = loc - 1;
 
-    for (int i = 4; i >= 0; i--)
+    for (int i = row-1; i >= 0; i--)
     {
         if (game_board[i][col] == -1)
         {
@@ -114,7 +120,7 @@ void Connect4Board::unmove<int>(int loc)
 {
     int col = loc - 1;
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < row; i++)
     {
         if (game_board[i][col] != -1)
         {
@@ -138,8 +144,8 @@ int Connect4Board::check_terminal<int>()
     }
 
     // Check for rows
-    for(int i = 0; i < 5; i++){
-        for(int j = 0; j < 2; j++){
+    for(int i = 0; i < row; i++){
+        for(int j = 0; j < col-3; j++){
             if(game_board[i][j] != -1 && game_board[i][j] == game_board[i][j+1] && game_board[i][j+1] == game_board[i][j+2] && game_board[i][j+2] == game_board[i][j+3]){
                 return game_board[i][j];
             }
@@ -147,8 +153,8 @@ int Connect4Board::check_terminal<int>()
     }
 
     //check for columns for board size 5x5
-    for(int i = 0; i < 2; i++){
-        for(int j = 0; j < 5; j++){
+    for(int i = 0; i < row-3; i++){
+        for(int j = 0; j < col; j++){
             if(game_board[i][j] != -1 && game_board[i][j] == game_board[i+1][j] && game_board[i+1][j] == game_board[i+2][j] && game_board[i+2][j] == game_board[i+3][j]){
                 return game_board[i][j];
             }
@@ -156,8 +162,8 @@ int Connect4Board::check_terminal<int>()
     }
 
     //check for diagonals
-    for(int i = 0; i < 2; i++){
-        for(int j = 0; j < 2; j++){
+    for(int i = 0; i < row-3; i++){
+        for(int j = 0; j < col-3; j++){
             if(game_board[i][j] != -1 && game_board[i][j] == game_board[i+1][j+1] && game_board[i+1][j+1] == game_board[i+2][j+2] && game_board[i+2][j+2] == game_board[i+3][j+3]){
                 return game_board[i][j];
             }
@@ -172,7 +178,7 @@ int Connect4Board::check_terminal<int>()
 template <>
 bool Connect4Board::playable<int>(int loc)
 {
-    if(loc < 1 || loc > 5){
+    if(loc < 1 || loc > row){
         return false;
     }
     int col = loc - 1;
@@ -182,7 +188,7 @@ bool Connect4Board::playable<int>(int loc)
 
  Vector<int> Connect4Board::get_valid_moves() {
     Vector<int> valid_moves;
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < col; i++) {
         if (game_board[0][i] == -1) {
             valid_moves.push_back(i + 1);
         }

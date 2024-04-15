@@ -15,7 +15,7 @@ private:
     GAME* game;
 
     //AI Turn is the turn of the AI
-    typename GAME::PLAYER_NOTATION AI_Turn = 0;
+    typename GAME::PLAYER_NOTATION AI_Turn ;
     
     //exploration factor is the parameter that controls the exploration vs exploitation tradeoff in the UCB formula
     double exploration_factor = 0.5;
@@ -65,9 +65,9 @@ private:
 
             // Recursive simulation for the opponent's move
             Vector<int> recursive_result = simulate_game(_move, opponent_turn, depth + 1);
-            result[0] += recursive_result[0]; // Losses for the AI are wins for the opponent
+            result[0] += recursive_result[2]; // Losses for the AI are wins for the opponent
             result[1] += recursive_result[1]; // Draws for both
-            result[2] += recursive_result[2]; // Wins for the AI are losses for the opponent
+            result[2] += recursive_result[0]; // Wins for the AI are losses for the opponent
         }
 
         // Undo the move before returning
@@ -112,9 +112,9 @@ private:
 
             // Recursive simulation for the opponent's move
             Vector<int> recursive_result = simulate_game(_move, opponent_turn, depth + 1, max_depth);
-            result[0] += recursive_result[2]; // Wins for the AI are losses for the opponent
+            result[0] += recursive_result[0]; // Wins for the AI are losses for the opponent
             result[1] += recursive_result[1]; // Draws for both
-            result[2] += recursive_result[0]; // Losses for the AI are wins for the opponent
+            result[2] += recursive_result[2]; // Losses for the AI are wins for the opponent
         }
 
         // Undo the move before returning
@@ -128,17 +128,8 @@ public:
     AI(GAME* game ) : game(game) {}
 
     //Function to set the AI's turn
-    void set_turn(int turn) {
-        if(turn == 1){
-            AI_Turn = 0;
-        }
-        else if(turn == 2){
-            AI_Turn = 1;
-        }
-        else{
-            cout<<"Invalid Turn"<<endl;
-        }
-        cout<<"AI TURN IS "<<AI_Turn<<endl;
+    void set_turn(typename GAME::PLAYER_NOTATION turn) {
+        AI_Turn = turn;
     }
 
 
@@ -158,20 +149,21 @@ public:
         Vector<double> UBC_Rates;
 
         //Get the current player's notation
-        typename GAME::PLAYER_NOTATION ai_notation = game->get_turn();
+        typename GAME::PLAYER_NOTATION player = game->get_turn();
         int num_players = game->get_num_players();
 
         //If the game is over, return an empty string
         for(auto moves : valid_moves){
 
             // Simulate the game for each valid move and calculate the UCB value for each move
-            Vector<int> result = simulate_game<typename GAME::MOVE,typename GAME::PLAYER_NOTATION>(moves,AI_Turn,0);
+            Vector<int> result = simulate_game<typename GAME::MOVE,typename GAME::PLAYER_NOTATION>(moves,player,0);
+            player= game->get_next_player(player);
             int total_games = result[0] + result[1] + result[2];
 
             cout<<"FOR MOVE " << moves << " WINS ARE " << result[0] << " DRAWS ARE " << result[1] << " LOSSES ARE " << result[2] <<"Tots :"<<total_games<<endl;
 
             //modified version of the UBC , change it according to prefs
-            double UCB = ((result[0]*3.0 + result[1]*2.0 - result[2]*3.0)/total_games);// + sqrt(2 * log(total_games) / (total_games * exploration_factor));
+            double UCB = ((result[0]*3.0 + result[1]*2.0 - result[2]*3.0)/total_games)+ sqrt(2 * log(total_games) / (total_games * exploration_factor));
             cout<<"FOR MOVE " << moves << " UCB IS " << UCB << endl;
             UBC_Rates.push_back(UCB);
         }

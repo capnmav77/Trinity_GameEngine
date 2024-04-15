@@ -45,4 +45,7 @@ public:
     void set_remaining_moves(){
         remaining_moves--;
     }
+    template <typename U>
+    U get_board_key();
+
 };

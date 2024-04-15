@@ -77,11 +77,13 @@ public:
         return board.get_valid_moves();
     }
 
+    
     std::string get_board_key(){
-        return board.get_board_key();
+        return board.get_board_key<std::string>();
     }
-
 };
+
+
 
 
 //clear the screen

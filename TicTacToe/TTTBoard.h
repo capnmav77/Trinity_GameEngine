@@ -1,4 +1,4 @@
-#pragma once //meaning include this file only once
+#pragma once // meaning include this file only once
 #include "../MySTL/vector.h"
 #include "../Engine/GamePack.h"
 #include "../Engine/GameBoard.h"
@@ -7,24 +7,20 @@
 #include "./TTT.h"
 #include <sstream>
 
-
 class TTTBoard : public Board<3, 3, int>
 {
 private:
-
-
 public:
-
-    //function to initialize the board
+    // function to initialize the board
     void init();
 
-    //function to display the board
+    // function to display the board
     void display();
 
-    //function to get the valid moves
+    // function to get the valid moves
     Vector<int> get_valid_moves();
 
-    //function to check if a move is valid
+    // function to check if a move is valid
     template <typename U>
     bool playable(U loc);
 
@@ -32,23 +28,31 @@ public:
     template <typename U>
     U check_terminal();
 
-    //function to move the player
+    // function to move the player
     template <typename U, typename V>
     void move(U loc, V turn);
 
-    //function to unmove the player i.e setting the move to -1
+    // function to unmove the player i.e setting the move to -1
     template <typename U>
     void unmove(U loc);
 
-    std::string get_board_key() {
+    std::string get_board_key()
+    {
         std::stringstream ss;
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                if (game_board[i][j] == -1) {
+        for (int i = 0; i < 3; ++i)
+        {
+            for (int j = 0; j < 3; ++j)
+            {
+                if (game_board[i][j] == -1)
+                {
                     ss << "-";
-                } else if (game_board[i][j] == 0) {
+                }
+                else if (game_board[i][j] == 0)
+                {
                     ss << "O";
-                } else if (game_board[i][j] == 1) {
+                }
+                else if (game_board[i][j] == 1)
+                {
                     ss << "X";
                 }
             }
@@ -56,8 +60,34 @@ public:
         return ss.str();
     }
 
+    template <typename U>
+    U get_board_key();
 };
-    
+
+template <>
+std::string TTTBoard::get_board_key<std::string>()
+{
+    std::stringstream ss;
+    for (int i = 0; i < 3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
+            if (game_board[i][j] == -1)
+            {
+                ss << "-";
+            }
+            else if (game_board[i][j] == 0)
+            {
+                ss << "O";
+            }
+            else if (game_board[i][j] == 1)
+            {
+                ss << "X";
+            }
+        }
+    }
+    return ss.str();
+}
 
 void TTTBoard::init()
 {
@@ -105,7 +135,6 @@ void TTTBoard::move<int, int>(int loc, int turn)
     }
 }
 
-
 template <>
 void TTTBoard::unmove<int>(int loc)
 {
@@ -114,7 +143,6 @@ void TTTBoard::unmove<int>(int loc)
     game_board[row][col] = -1;
 }
 
-
 // i swear to god i'll .... , whyyyyyy
 // check the typeee you fooollll
 
@@ -122,10 +150,11 @@ template <>
 int TTTBoard::check_terminal<int>()
 {
 
-    //return 0 -> player 1 , 1->player2 , -2-> draw , -1 -> game not over
+    // return 0 -> player 1 , 1->player2 , -2-> draw , -1 -> game not over
 
-    //check for a draw
-    if(get_remaining_moves() == 0){
+    // check for a draw
+    if (get_remaining_moves() == 0)
+    {
         return -2;
     }
 
@@ -156,12 +185,11 @@ int TTTBoard::check_terminal<int>()
     return -1;
 }
 
-
-
 template <>
 bool TTTBoard::playable<int>(int loc)
 {
-    if(loc < 1 || loc > 9){
+    if (loc < 1 || loc > 9)
+    {
         return false;
     }
     int row = (loc - 1) / 3;
@@ -169,12 +197,15 @@ bool TTTBoard::playable<int>(int loc)
     return game_board[row][col] == -1;
 }
 
-
- Vector<int> TTTBoard::get_valid_moves() {
+Vector<int> TTTBoard::get_valid_moves()
+{
     Vector<int> valid_moves;
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            if (game_board[i][j] == -1) {
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (game_board[i][j] == -1)
+            {
                 valid_moves.push_back(i * 3 + j + 1);
             }
         }
