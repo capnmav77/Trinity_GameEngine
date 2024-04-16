@@ -1,6 +1,8 @@
+#pragma once
 #include <iostream>
 #include <list>
 #include <functional>
+#include <vector>
 
 template<typename Key, typename Value, typename Hash = std::hash<Key>, typename KeyEqual = std::equal_to<Key>>
 class Unordered_map {
