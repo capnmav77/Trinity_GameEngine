@@ -116,7 +116,7 @@ void TTTBoard::unmove<int>(int loc)
 {
     int row = (loc - 1) / 3;
     int col = (loc - 1) % 3;
-    cout<<"unmoving pos:"<<loc<<endl;
+    //cout<<"unmoving pos:"<<loc<<endl;
     game_board[row][col] = -1;
     
 }

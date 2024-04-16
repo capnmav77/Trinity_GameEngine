@@ -56,15 +56,20 @@ private:
         // Make a move in the game
         game->simulate(move, turn);
 
-        string game_state = game->get_board_key();
-        if (game_states.find(game_state) != game_states.end() && game_states[game_state].find(turn) != game_states[game_state].end())
-        {
-            for(int i : game_states[game_state][turn]){
-                cout<<i<<" ";
-            }
-            cout<<endl;
-            return game_states[game_state][turn];
-        }
+        // string game_state = game->get_board_key();
+        // int tempo = 0;
+        // if (game_states.find(game_state) != game_states.end() && game_states[game_state].find(turn) != game_states[game_state].end())
+        // {
+        //     for(int i : game_states[game_state][turn]){
+        //         if(i == 0){
+        //             tempo++;
+        //         }
+        //         cout<<i<<" ";
+        //     }
+        //     cout<<endl;
+        //     if(tempo==3)
+        //         return game_states[game_state][turn];
+        // }
 
 
         Vector<int> result(3, 0);
@@ -72,7 +77,7 @@ private:
         int terminal_state = game->get_game_state();
 
         if(terminal_state!=-1 ){
-            cout<<"TERMINAL STATE : "<<terminal_state<<endl;
+            //cout<<"TERMINAL STATE : "<<terminal_state<<endl;
             //Draw
             if(terminal_state == -2){
                 result[1] = 1;
@@ -86,16 +91,16 @@ private:
                 result[2] = 1;
             }
             game->simulate(move, SIMULATE_STATE::UNMOVE);
-            game_states[game_state][turn] = result;
+            // game_states[game_state][turn] = result;
             return result;
         }
 
         Vector<typename GAME::MOVE> valid_moves = game->get_valid_moves();
-        game->render_board();
+        //game->render_board();
 
         U new_turn = game->get_next_player(turn);
         for(auto _move : valid_moves){
-            cout<<"simulating :"<<_move<<" : "<<new_turn<<endl;
+            //cout<<"simulating :"<<_move<<" : "<<new_turn<<endl;
             Vector<int> recursive_result = simulate_game(_move,new_turn);
             result[0] += recursive_result[0];
             result[1] += recursive_result[1];
@@ -103,7 +108,7 @@ private:
         }
 
         game->simulate(move, SIMULATE_STATE::UNMOVE);
-        game_states[game_state][turn] = result;
+        // game_states[game_state][turn] = result;
         return result;
     }
 
