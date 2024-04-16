@@ -31,20 +31,23 @@ private:
     {
         cout<< " WINS : " << wins << " DRAWS : " << draws << " LOSSES : " << losses << endl;
 
+        // int total_games = wins + draws + losses;
+
+        // double win_bias = wins * 0.5;
+        // double win_depth = wins / total_games;
+
+        // double draw_bias = draws * 0.25;
+        // double draw_depth = draws / total_games;
+
+        // double loss_bias = losses * 0.1;
+        // double loss_depth = losses / total_games;
+
+        // double refactored_wins = win_bias + win_depth;
+
+        // return (win_bias + draw_bias + loss_bias + win_depth + draw_depth + loss_depth) * sqrt(2 * log(total_games) / (total_games * exploration_factor));
         int total_games = wins + draws + losses;
-
-        double win_bias = wins * 0.5;
-        double win_depth = wins / total_games;
-
-        double draw_bias = draws * 0.25;
-        double draw_depth = draws / total_games;
-
-        double loss_bias = losses * 0.1;
-        double loss_depth = losses / total_games;
-
-        double refactored_wins = win_bias + win_depth;
-
-        return (win_bias + draw_bias + loss_bias + win_depth + draw_depth + loss_depth) * sqrt(2 * log(total_games) / (total_games * exploration_factor));
+        double UCB = (wins*3.0 + draws*2.0 - losses*3.0)/(double)total_games + sqrt(2 * log(total_games) / (total_games * exploration_factor));
+        return UCB;
     }
 
     template<typename T, typename U>
@@ -62,11 +65,10 @@ private:
 
         Vector<int> result(3, 0);
 
-        Vector<typename GAME::MOVE> valid_moves = game->get_valid_moves();
-
         int terminal_state = game->get_game_state();
 
         if(terminal_state!=-1 ){
+            cout<<"TERMINAL STATE : "<<terminal_state<<endl;
             //Draw
             if(terminal_state == -2){
                 result[1] = 1;
@@ -83,11 +85,14 @@ private:
             return result;
         }
 
-        if(valid_moves.size() == 0){
-            result[1] = 1;
-            game->simulate(move, SIMULATE_STATE::UNMOVE);
-            return result;
-        }
+        Vector<typename GAME::MOVE> valid_moves = game->get_valid_moves();
+        game->render_board();
+        // if(valid_moves.size() == 0){
+        //     result[1] = 1;
+        //     cout<<"DRAW"<<endl;
+        //     game->simulate(move, SIMULATE_STATE::UNMOVE);
+        //     return result;
+        // }
 
         for(auto _move : valid_moves){
             turn = game->get_next_player(turn);
@@ -110,6 +115,7 @@ public:
     void set_turn(typename GAME::PLAYER_NOTATION turn)
     {
         AI_Turn = turn;
+        cout<<AI_Turn<<endl;
     }
 
     // Function to set the exploration factor

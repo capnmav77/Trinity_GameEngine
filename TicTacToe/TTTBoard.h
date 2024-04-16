@@ -117,6 +117,7 @@ void TTTBoard::unmove<int>(int loc)
     int row = (loc - 1) / 3;
     int col = (loc - 1) % 3;
     game_board[row][col] = -1;
+    
 }
 
 // i swear to god i'll .... , whyyyyyy
