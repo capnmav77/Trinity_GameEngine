@@ -23,7 +23,7 @@ private:
     // exploration factor is the parameter that controls the exploration vs exploitation tradeoff in the UCB formula
     double exploration_factor = 0.5;
 
-    unordered_map<string, unordered_map<typename GAME::PLAYER_NOTATION, Vector<int>> >game_states;
+    unordered_map<string, Vector<int>>game_states;
 
 
 
@@ -46,6 +46,9 @@ private:
 
         // return (win_bias + draw_bias + loss_bias + win_depth + draw_depth + loss_depth) * sqrt(2 * log(total_games) / (total_games * exploration_factor));
         int total_games = wins + draws + losses;
+        if(wins==1 && total_games==1){
+            return 10;
+        }
         double UCB = (wins*3.0 + draws*2.0 - losses*3.0)/(double)total_games + sqrt(2 * log(total_games) / (total_games * exploration_factor));
         return UCB;
     }
@@ -55,27 +58,8 @@ private:
     {
         // Make a move in the game
         game->simulate(move, turn);
-
-        // string game_state = game->get_board_key();
-        // int tempo = 0;
-        // if (game_states.find(game_state) != game_states.end() && game_states[game_state].find(turn) != game_states[game_state].end())
-        // {
-        //     for(int i : game_states[game_state][turn]){
-        //         if(i == 0){
-        //             tempo++;
-        //         }
-        //         cout<<i<<" ";
-        //     }
-        //     cout<<endl;
-        //     if(tempo==3)
-        //         return game_states[game_state][turn];
-        // }
-
-
         Vector<int> result(3, 0);
-
         int terminal_state = game->get_game_state();
-
         if(terminal_state!=-1 ){
             //cout<<"TERMINAL STATE : "<<terminal_state<<endl;
             //Draw
@@ -95,6 +79,16 @@ private:
             return result;
         }
 
+        string game_state = game->get_board_key();
+        if(game_states.find(game_state) != game_states.end()){
+            for(int i : game_states[game_state]){
+                cout<<i<<" ";
+            }
+            cout<<endl;
+            game->simulate(move, SIMULATE_STATE::UNMOVE);
+            return game_states[game_state];
+        }
+
         Vector<typename GAME::MOVE> valid_moves = game->get_valid_moves();
         //game->render_board();
 
@@ -108,7 +102,7 @@ private:
         }
 
         game->simulate(move, SIMULATE_STATE::UNMOVE);
-        // game_states[game_state][turn] = result;
+        game_states[game_state] = result;
         return result;
     }
 
@@ -147,6 +141,8 @@ public:
         // int num_players = game->get_num_players();
         // player = game->get_next_player(player);
 
+
+        
         // If the game is over, return an empty string
         for (auto moves : valid_moves)
         {

@@ -96,31 +96,31 @@ void Connect4_Plugin()
   if(wish == 1)
   {
     HumanPlayer h1, h2;
-    h1.initialize_player(1);
-    h2.initialize_player(2);
+    h1.initialize_player(0);
+    h2.initialize_player(1);
     GameEngine<Connect4,HumanPlayer*,HumanPlayer*> gameEngine(&gamePack,&h1,&h2); 
     gameEngine.game_loop();
   }
   else if(wish ==2){
     HumanPlayer h2;
     AIPlayer<Connect4> ai_1(&gamePack);
-    ai_1.initialize_player(1);
-    h2.initialize_player(2);
+    ai_1.initialize_player(0);
+    h2.initialize_player(1);
     GameEngine<Connect4,AIPlayer<Connect4>*,HumanPlayer*> gameEngine(&gamePack,&ai_1,&h2);
     gameEngine.game_loop(); 
   }
   else if(wish ==3){
     HumanPlayer h1;
     AIPlayer<Connect4> ai_2(&gamePack);
-    h1.initialize_player(1);
-    ai_2.initialize_player(2);
+    h1.initialize_player(0);
+    ai_2.initialize_player(1);
     GameEngine<Connect4,HumanPlayer*,AIPlayer<Connect4>*> gameEngine(&gamePack,&h1,&ai_2); 
     gameEngine.game_loop();
   }
   else{
     AIPlayer<Connect4> ai_1(&gamePack),ai_2(&gamePack);
-    ai_1.initialize_player(1);
-    ai_2.initialize_player(2);
+    ai_1.initialize_player(0);
+    ai_2.initialize_player(1);
     GameEngine<Connect4,AIPlayer<Connect4>*,AIPlayer<Connect4>*> gameEngine(&gamePack,&ai_1,&ai_2); 
     gameEngine.game_loop();
   }
