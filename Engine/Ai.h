@@ -56,11 +56,15 @@ private:
         // Make a move in the game
         game->simulate(move, turn);
 
-        // string game_state = game->get_board_key();
-        // if (game_states.find(game_state) != game_states.end() && game_states[game_state].find(turn) != game_states[game_state].end())
-        // {
-        //     return game_states[game_state][turn];
-        // }
+        string game_state = game->get_board_key();
+        if (game_states.find(game_state) != game_states.end() && game_states[game_state].find(turn) != game_states[game_state].end())
+        {
+            for(int i : game_states[game_state][turn]){
+                cout<<i<<" ";
+            }
+            cout<<endl;
+            return game_states[game_state][turn];
+        }
 
 
         Vector<int> result(3, 0);
@@ -82,27 +86,24 @@ private:
                 result[2] = 1;
             }
             game->simulate(move, SIMULATE_STATE::UNMOVE);
+            game_states[game_state][turn] = result;
             return result;
         }
 
         Vector<typename GAME::MOVE> valid_moves = game->get_valid_moves();
         game->render_board();
-        // if(valid_moves.size() == 0){
-        //     result[1] = 1;
-        //     cout<<"DRAW"<<endl;
-        //     game->simulate(move, SIMULATE_STATE::UNMOVE);
-        //     return result;
-        // }
 
+        U new_turn = game->get_next_player(turn);
         for(auto _move : valid_moves){
-            turn = game->get_next_player(turn);
-            Vector<int> recursive_result = simulate_game(_move,turn);
+            cout<<"simulating :"<<_move<<" : "<<new_turn<<endl;
+            Vector<int> recursive_result = simulate_game(_move,new_turn);
             result[0] += recursive_result[0];
             result[1] += recursive_result[1];
             result[2] += recursive_result[2];
         }
 
         game->simulate(move, SIMULATE_STATE::UNMOVE);
+        game_states[game_state][turn] = result;
         return result;
     }
 
@@ -136,9 +137,10 @@ public:
 
         // Get the current player's notation
         typename GAME::PLAYER_NOTATION player = game->get_turn();
-        set_turn(player);
+        //set_turn(player);
         cout<<"AI TURN : "<<AI_Turn<<endl;
-        int num_players = game->get_num_players();
+        // int num_players = game->get_num_players();
+        // player = game->get_next_player(player);
 
         // If the game is over, return an empty string
         for (auto moves : valid_moves)
@@ -146,7 +148,6 @@ public:
 
             // Simulate the game for each valid move and calculate the UCB value for each move
             Vector<int> result = simulate_game<typename GAME::MOVE, typename GAME::PLAYER_NOTATION>(moves, player);
-            player = game->get_next_player(player);
 
 
             // modified version of the UBC , change it according to prefs

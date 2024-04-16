@@ -1,560 +1,76 @@
-| X |   |   | 
+| X | O |   | 
 |   | O |   | 
-| O |   |   | 
-Player raTurn: 3
-| X |   | X | 
+|   | X | O | 
+| X | O |   | 
 |   | O |   | 
-| O |   |   | 
-| X |   | X | 
+|   | X | O | 
+Player eTurn: 3
+| X | O | X | 
 |   | O |   | 
-| O |   |   | 
+|   | X | O | 
+| X | O | X | 
+|   | O |   | 
+|   | X | O | 
 0
 AI TURN : 0
 | X | O | X | 
-|   | O |   | 
-| O |   |   | 
+| O | O |   | 
+|   | X | O | 
 | X | O | X | 
-| X | O |   | 
-| O |   |   | 
-| X | O | X | 
-| X | O | O | 
-| O |   |   | 
-| X | O | X | 
-| X | O | O | 
-| O | X |   | 
-| X | O | X | 
-| X | O | O | 
-| O | X | O | 
-| X | O | X | 
-| X | O | O | 
-| O |   | O | 
-| X | O | X | 
-| X | O | O | 
-| O | X | O | 
-| X | O | X | 
-| X | O |   | 
-| O | X |   | 
-| X | O | X | 
-| X | O | O | 
-| O | X |   | 
-| X | O | X | 
-| X | O | O | 
-| O | X | X | 
-| X | O | X | 
-| X | O |   | 
-| O | X | X | 
-| X | O | X | 
-| X | O | O | 
-| O | X | X | 
-| X | O | X | 
-| X | O |   | 
-| O |   | O | 
-| X | O | X | 
-| X | O | X | 
-| O |   | O | 
-TERMINAL STATE : 0
-TERMINAL STATE : 0
-| X | O | X | 
-|   | O | O | 
-| O |   |   | 
-| X | O | X | 
-| X | O | O | 
-| O |   |   | 
-TERMINAL STATE : 0
-| X | O | X | 
-| X | O | O | 
-| O |   | X | 
-TERMINAL STATE : 0
-TERMINAL STATE : 0
-| X | O | X | 
-|   | O | O | 
-| O |   | X | 
-TERMINAL STATE : 0
-| X | O | X | 
-|   | O | O | 
-| O | X | X | 
-TERMINAL STATE : 0
-| X | O | X | 
-|   | O |   | 
-| O | X |   | 
+| O | O | X | 
+|   | X | O | 
+TERMINAL STATE : -2
+unmoving pos:7
+unmoving pos:6
 | X | O | X | 
 | O | O |   | 
-| O | X |   | 
-| X | O | X | 
-| O | O | X | 
-| O | X |   | 
-| X | O | X | 
-| O | O | X | 
-| O | X | O | 
-| X | O | X | 
-| O | O |   | 
-| O | X | O | 
-| X | O | X | 
-| O | O | X | 
-| O | X | O | 
-| X | O | X | 
-|   | O | X | 
-| O | X |   | 
-| X | O | X | 
-| O | O | X | 
-| O | X |   | 
-TERMINAL STATE : 1
-TERMINAL STATE : 1
-| X | O | X | 
-|   | O |   | 
-| O | X | O | 
-| X | O | X | 
-| X | O |   | 
-| O | X | O | 
-| X | O | X | 
-| X | O | O | 
-| O | X | O | 
-| X | O | X | 
-|   | O | O | 
-| O | X | O | 
-| X | O | X | 
-| X | O | O | 
-| O | X | O | 
-| X | O | X | 
-|   | O |   | 
-| O |   | O | 
-| X | O | X | 
-| X | O |   | 
-| O |   | O | 
-| X | O | X | 
-| X | O | O | 
-| O |   | O | 
-| X | O | X | 
-| X | O | O | 
-| O | X | O | 
-| X | O | X | 
-| X | O |   | 
-| O | X | O | 
-| X | O | X | 
-| X | O | O | 
-| O | X | O | 
-| X | O | X | 
-|   | O | O | 
-| O |   | O | 
-| X | O | X | 
-| X | O | O | 
-| O |   | O | 
+| X | X | O | 
 TERMINAL STATE : 0
-TERMINAL STATE : 0
+unmoving pos:6
+unmoving pos:7
+unmoving pos:4
+ WINS : 1 DRAWS : 1 LOSSES : 0
+FOR MOVE 4 UCB IS 3.67741
 | X | O | X | 
-|   | O |   | 
-| O | X | O | 
-| X | O | X | 
-| O | O |   | 
-| O | X | O | 
+|   | O | X |  ---------------playing X instead of 0 , fixing required
+|   | X | O | 
 | X | O | X | 
 | O | O | X | 
-| O | X | O | 
+|   | X | O | 
+TERMINAL STATE : -2
+unmoving pos:7
+unmoving pos:4
 | X | O | X | 
 |   | O | X | 
 | O | X | O | 
-| X | O | X | 
-| O | O | X | 
-| O | X | O | 
- WINS : 9 DRAWS : 0 LOSSES : 2
-FOR MOVE 2 UCB IS 2.84288
-| X |   | X | 
-| X | O |   | 
-| O |   |   | 
-| X | O | X | 
-| X | O |   | 
-| O |   |   | 
-| X | O | X | 
-| X | O | X | 
-| O |   |   | 
-TERMINAL STATE : 0
-TERMINAL STATE : 1
-TERMINAL STATE : 0
-| X | O | X | 
-| X | O |   | 
-| O |   | X | 
-| X | O | X | 
-| X | O | O | 
-| O |   | X | 
-| X | O | X | 
-| X | O | O | 
-| O | X | X | 
-| X | O | X | 
-| X | O |   | 
-| O | X | X | 
-| X | O | X | 
-| X | O | O | 
-| O | X | X | 
-| X |   | X | 
-| X | O | X | 
-| O |   |   | 
-| X | O | X | 
-| X | O | X | 
-| O |   |   | 
-| X | O | X | 
-| X | O | X | 
-| O | X |   | 
-| X | O | X | 
-| X | O | X | 
-| O | X | O | 
-| X | O | X | 
-| X | O | X | 
-| O |   | O | 
-| X | O | X | 
-| X | O | X | 
-| O | X | O | 
-| X |   | X | 
-| X | O | X | 
-| O | X |   | 
-| X | O | X | 
-| X | O | X | 
-| O | X |   | 
-TERMINAL STATE : 1
-TERMINAL STATE : 1
-| X |   | X | 
-| X | O | X | 
-| O |   | O | 
-TERMINAL STATE : 1
-TERMINAL STATE : 0
-| X |   | X | 
-| X | O |   | 
-| O | O |   | 
-TERMINAL STATE : 1
-| X |   | X | 
-| X | O | O | 
-| O | O |   | 
-TERMINAL STATE : 1
-TERMINAL STATE : 0
-| X |   | X | 
-| X | O |   | 
-| O | O | X | 
-TERMINAL STATE : 0
-TERMINAL STATE : 1
-| X |   | X | 
-| X | O |   | 
-| O |   | X | 
-| X | O | X | 
-| X | O |   | 
-| O |   | X | 
-TERMINAL STATE : 1
-TERMINAL STATE : 0
-TERMINAL STATE : 1
-| X |   | X | 
-| X | O |   | 
-| O | O | X | 
-TERMINAL STATE : 1
-| X |   | X | 
-| X | O | O | 
-| O | O | X | 
-TERMINAL STATE : 1
- WINS : 6 DRAWS : 0 LOSSES : 11
-FOR MOVE 4 UCB IS -0.0658736
-| X |   | X | 
-|   | O | O | 
-| O |   |   | 
-TERMINAL STATE : 1
-TERMINAL STATE : 0
-| X |   | X | 
-|   | O | O | 
-| O | X |   | 
-| X | O | X | 
-|   | O | O | 
-| O | X |   | 
-| X | O | X | 
-| X | O | O | 
-| O | X |   | 
-| X | O | X | 
-| X | O | O | 
-| O | X | O | 
-| X | O | X | 
-|   | O | O | 
-| O | X | O | 
-| X | O | X | 
-| X | O | O | 
-| O | X | O | 
-| X |   | X | 
-| X | O | O | 
-| O | X |   | 
-| X | O | X | 
-| X | O | O | 
-| O | X |   | 
-| X | O | X | 
-| X | O | O | 
-| O | X | X | 
-| X |   | X | 
-| X | O | O | 
-| O | X | X | 
-| X | O | X | 
-| X | O | O | 
-| O | X | X | 
-| X |   | X | 
-|   | O | O | 
-| O | X | O | 
-TERMINAL STATE : 1
-TERMINAL STATE : 0
-| X |   | X | 
-|   | O | O | 
-| O |   | O | 
-TERMINAL STATE : 1
-TERMINAL STATE : 0
-| X |   | X | 
-|   | O | O | 
-| O | X | O | 
-| X | O | X | 
-|   | O | O | 
-| O | X | O | 
-| X | O | X | 
-| X | O | O | 
-| O | X | O | 
-| X |   | X | 
-| X | O | O | 
-| O | X | O | 
-| X | O | X | 
-| X | O | O | 
-| O | X | O | 
- WINS : 3 DRAWS : 0 LOSSES : 3
-FOR MOVE 6 UCB IS 1.09293
-| X |   | X | 
-|   | O |   | 
-| O | X |   | 
+TERMINAL STATE : -2
+unmoving pos:4
+unmoving pos:7
+unmoving pos:6
+ WINS : 0 DRAWS : 2 LOSSES : 0
+FOR MOVE 6 UCB IS 3.17741
 | X | O | X | 
 |   | O |   | 
-| O | X |   | 
-| X | O | X | 
-| X | O |   | 
-| O | X |   | 
-| X | O | X | 
-| X | O | O | 
-| O | X |   | 
-| X | O | X | 
-| X | O | O | 
-| O | X | X | 
-| X | O | X | 
-| X | O |   | 
-| O | X | X | 
-| X | O | X | 
-| X | O | O | 
-| O | X | X | 
-| X | O | X | 
-|   | O | O | 
-| O | X |   | 
-| X | O | X | 
-| X | O | O | 
-| O | X |   | 
-| X | O | X | 
-| X | O | O | 
-| O | X | O | 
-| X | O | X | 
-|   | O | O | 
-| O | X | O | 
-| X | O | X | 
-| X | O | O | 
-| O | X | O | 
-| X | O | X | 
-|   | O |   | 
-| O | X | X | 
-| X | O | X | 
-| O | O |   | 
-| O | X | X | 
-TERMINAL STATE : 1
-TERMINAL STATE : 1
-| X |   | X | 
-| X | O |   | 
-| O | X |   | 
-| X | O | X | 
-| X | O |   | 
-| O | X |   | 
-| X | O | X | 
-| X | O | X | 
-| O | X |   | 
-| X | O | X | 
-| X | O | X | 
 | O | X | O | 
 | X | O | X | 
 | X | O |   | 
 | O | X | O | 
-| X | O | X | 
-| X | O | X | 
-| O | X | O | 
-| X |   | X | 
-| X | O | X | 
-| O | X |   | 
-| X | O | X | 
-| X | O | X | 
-| O | X |   | 
-TERMINAL STATE : 1
-TERMINAL STATE : 1
-| X |   | X | 
-| X | O |   | 
-| O | X | O | 
-TERMINAL STATE : 1
-| X |   | X | 
-| X | O | O | 
-| O | X | O | 
-TERMINAL STATE : 1
-| X |   | X | 
-|   | O | O | 
-| O | X |   | 
-TERMINAL STATE : 1
-TERMINAL STATE : 0
-| X |   | X | 
-|   | O | O | 
-| O | X | X | 
-| X | O | X | 
-|   | O | O | 
-| O | X | X | 
-| X | O | X | 
-| X | O | O | 
-| O | X | X | 
-| X |   | X | 
-| X | O | O | 
-| O | X | X | 
-| X | O | X | 
-| X | O | O | 
-| O | X | X | 
-| X |   | X | 
-|   | O |   | 
-| O | X | X | 
-| X | O | X | 
-|   | O |   | 
-| O | X | X | 
-| X | O | X | 
-| X | O |   | 
-| O | X | X | 
-| X | O | X | 
-| X | O | O | 
-| O | X | X | 
-| X | O | X | 
-|   | O | O | 
-| O | X | X | 
-| X | O | X | 
-| X | O | O | 
-| O | X | X | 
-| X |   | X | 
-| X | O |   | 
-| O | X | X | 
-| X | O | X | 
-| X | O |   | 
-| O | X | X | 
-TERMINAL STATE : 1
-TERMINAL STATE : 1
-| X |   | X | 
-|   | O | O | 
-| O | X | X | 
-TERMINAL STATE : 1
-TERMINAL STATE : 0
- WINS : 2 DRAWS : 0 LOSSES : 10
-FOR MOVE 8 UCB IS -1.08989
-| X |   | X | 
-|   | O |   | 
-| O |   | O | 
-TERMINAL STATE : 1
-| X |   | X | 
-| O | O |   | 
-| O |   | O | 
-TERMINAL STATE : 1
-TERMINAL STATE : 0
-| X |   | X | 
-| O | O |   | 
-| O | X | O | 
-| X | O | X | 
-| O | O |   | 
-| O | X | O | 
-| X | O | X | 
-| O | O | X | 
-| O | X | O | 
-| X |   | X | 
-| O | O | X | 
-| O | X | O | 
-| X | O | X | 
-| O | O | X | 
-| O | X | O | 
-| X |   | X | 
-|   | O | X | 
-| O |   | O | 
+TERMINAL STATE : -2
+unmoving pos:6
+unmoving pos:4
 | X | O | X | 
 |   | O | X | 
-| O |   | O | 
-| X | O | X | 
-| X | O | X | 
-| O |   | O | 
-TERMINAL STATE : 0
-TERMINAL STATE : 0
-| X |   | X | 
-| X | O | X | 
-| O |   | O | 
-| X | O | X | 
-| X | O | X | 
-| O |   | O | 
-| X | O | X | 
-| X | O | X | 
 | O | X | O | 
-| X |   | X | 
+TERMINAL STATE : -2
+unmoving pos:4
+unmoving pos:6
+unmoving pos:7
+ WINS : 0 DRAWS : 2 LOSSES : 0
+FOR MOVE 7 UCB IS 3.17741
 | X | O | X | 
-| O | X | O | 
+| O | O |   | 
+|   | X | O | 
 | X | O | X | 
-| X | O | X | 
-| O | X | O | 
-TERMINAL STATE : 0
-TERMINAL STATE : 0
- WINS : 5 DRAWS : 0 LOSSES : 2
-FOR MOVE 9 UCB IS 2.3402
-| X | O | X | 
-|   | O |   | 
-| O |   |   | 
-| X | O | X | 
-|   | O |   | 
-| O |   |   | 
-Player raTurn: 6
-| X | O | X | 
-|   | O | X | 
-| O |   |   | 
-| X | O | X | 
-|   | O | X | 
-| O |   |   | 
-0
-AI TURN : 0
-| X | O | X | 
-| O | O | X | 
-| O |   |   | 
-| X | O | X | 
-| O | O | X | 
-| O | X |   | 
-| X | O | X | 
-| O | O | X | 
-| O | X | O | 
-| X | O | X | 
-| O | O | X | 
-| O |   | O | 
-| X | O | X | 
-| O | O | X | 
-| O | X | O | 
- WINS : 0 DRAWS : 0 LOSSES : 0
-FOR MOVE 4 UCB IS -nan
-| X | O | X | 
-|   | O | X | 
-| O | X |   | 
-| X | O | X | 
-| O | O | X | 
-| O | X |   | 
-TERMINAL STATE : 1
-TERMINAL STATE : 1
- WINS : 0 DRAWS : 0 LOSSES : 2
-FOR MOVE 8 UCB IS -1.82259
-| X | O | X | 
-|   | O | X | 
-| O |   | O | 
-| X | O | X | 
-| X | O | X | 
-| O |   | O | 
-TERMINAL STATE : 0
-TERMINAL STATE : 0
- WINS : 2 DRAWS : 0 LOSSES : 0
-FOR MOVE 9 UCB IS 4.17741
-| X | O | X | 
-| O | O | X | 
-| O |   |   | 
-| X | O | X | 
-| O | O | X | 
-| O |   |   | 
-Player raTurn: ^C
+| O | O |   | 
+|   | X | O | 
+Player eTurn: ^C
