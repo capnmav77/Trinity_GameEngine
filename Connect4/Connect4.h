@@ -104,9 +104,15 @@ void Connect4::simulate(Connect4::MOVE loc, Connect4::PLAYER_NOTATION turn)
 {
 
     if (turn != -1)
+    {
         board.move(loc, turn);
-    else
+        board.set_remaining_moves();
+    }
+    else{
         board.unmove(loc);
+        board.unmove_set_remaining_moves();
+    }
+       
 }
 
 // change the type from string to int

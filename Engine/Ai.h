@@ -22,6 +22,7 @@ private:
 
     // exploration factor is the parameter that controls the exploration vs exploitation tradeoff in the UCB formula
     double exploration_factor = 0.5;
+    int exploration_depth = 12;
 
     unordered_map<string, Vector<int>>game_states;
 
@@ -49,14 +50,20 @@ private:
         if(wins==1 && total_games==1){
             return 10;
         }
-        double UCB = (wins*3.0 + draws*2.0 - losses*3.0)/(double)total_games + sqrt(2 * log(total_games) / (total_games * exploration_factor));
+        double UCB = (wins*3.5 + draws*3.0 - losses*3.0)/(double)total_games + sqrt(2 * log(total_games) / (total_games * exploration_factor));
         return UCB;
     }
 
     template<typename T, typename U>
-    Vector<int> simulate_game(T move, U turn )
+    Vector<int> simulate_game(T move, U turn,int depth)
     {
         // Make a move in the game
+        // cout<<"depth : "<<depth<<endl;  
+        if(depth>=exploration_depth)
+        {
+            Vector<int> result(3, 0);
+            return result;
+        }
         game->simulate(move, turn);
         Vector<int> result(3, 0);
         int terminal_state = game->get_game_state();
@@ -81,10 +88,10 @@ private:
 
         string game_state = game->get_board_key();
         if(game_states.find(game_state) != game_states.end()){
-            for(int i : game_states[game_state]){
-                cout<<i<<" ";
-            }
-            cout<<endl;
+            // for(int i : game_states[game_state]){
+            //     cout<<i<<" ";
+            // }
+            // cout<<endl;
             game->simulate(move, SIMULATE_STATE::UNMOVE);
             return game_states[game_state];
         }
@@ -95,16 +102,19 @@ private:
         U new_turn = game->get_next_player(turn);
         for(auto _move : valid_moves){
             //cout<<"simulating :"<<_move<<" : "<<new_turn<<endl;
-            Vector<int> recursive_result = simulate_game(_move,new_turn);
+            Vector<int> recursive_result = simulate_game(_move,new_turn,depth+1);
             result[0] += recursive_result[0];
             result[1] += recursive_result[1];
             result[2] += recursive_result[2];
+           
         }
 
         game->simulate(move, SIMULATE_STATE::UNMOVE);
         game_states[game_state] = result;
         return result;
     }
+
+    
 
 
 public:
@@ -124,9 +134,15 @@ public:
         exploration_factor = factor;
     }
 
+    void set_exploration_depth(int depth)
+    {
+        exploration_depth = depth;
+    }
+
     // function that decides the move for the AI
     std::string decide_move()
     {
+        game_states.clear();
         // Simulate the current state of the game
         game->simulate(SIMULATE_STATE::SAVE_BOARD); // overloaded function to save the current state of the game
 
@@ -148,14 +164,14 @@ public:
         {
 
             // Simulate the game for each valid move and calculate the UCB value for each move
-            Vector<int> result = simulate_game<typename GAME::MOVE, typename GAME::PLAYER_NOTATION>(moves, player);
+            Vector<int> result = simulate_game<typename GAME::MOVE, typename GAME::PLAYER_NOTATION>(moves, player,1);
 
-
-            // modified version of the UBC , change it according to prefs
+           
             double UCB = calculate_UCB(result[0], result[1], result[2]); //((result[0]*3.0 + result[1]*2.0 - result[2]*3.0)/total_games)+ sqrt(2 * log(total_games) / (total_games * exploration_factor));
-
+            
             cout << "FOR MOVE " << moves << " UCB IS " << UCB << endl;
             UBC_Rates.push_back(UCB);
+
         }
 
         // get the best move based on the UBC values

@@ -10,6 +10,8 @@
 class TTTBoard : public Board<3, 3, int>
 {
 private:
+    int row ; 
+    int col;
 public:
     // function to initialize the board
     void init();
@@ -68,9 +70,11 @@ std::string TTTBoard::get_board_key<std::string>()
 void TTTBoard::init()
 {
     Board::init();
-    for (int i = 0; i < 3; ++i)
+    this->row = Board::game_board.size();
+    this->col = Board::game_board[0].size();
+    for (int i = 0; i < row; ++i)
     {
-        for (int j = 0; j < 3; ++j)
+        for (int j = 0; j < col; ++j)
         {
             game_board[i][j] = -1;
         }
