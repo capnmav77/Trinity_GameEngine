@@ -26,10 +26,9 @@ void play(Unordered_map<std::string , void(*)()> game_collection)
     cout << "2. Connect 4" << endl;
 
     cin >> wish;
-
-    if (wish > game_collection.mysize() || wish <= 0)
-      continue;
-    break;
+    if(wish == 1 || wish == 2){
+      break;
+    }
   }
 
   if(wish == 1)

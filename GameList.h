@@ -77,6 +77,13 @@ void TTT_Plugin()
 
 void Connect4_Plugin()
 {
+  std::cout << "\033[2J\033[1;1H";
+
+  std::cout<<"  ____                            _   _  _   "<<endl;
+  std::cout<<" / ___|___  _ __  _ __   ___  ___| |_| || |  "<<endl;
+  std::cout<<"| |   / _ \\| '_ \\| '_ \\ / _ \\/ __| __| || |_ "<<endl;
+  std::cout<<"| |__| (_) | | | | | | |  __/ (__| |_|__   _|"<<endl;
+  std::cout<<" \\____\\___/|_| |_|_| |_|\\___|\\___|\\__|  |_|  "<<endl;
   
   std::cout<<"Which Mode you will like "<<std::endl;
 
