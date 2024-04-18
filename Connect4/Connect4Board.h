@@ -167,6 +167,15 @@ int Connect4Board::check_terminal<int>()
             }
         }
     }
+
+    //check for diagonals from bottom to top
+    for(int i = 4; i >=3; --i){
+        for(int j = 0; j <=1; j++){
+            if(game_board[i][j] != -1 && game_board[i][j] == game_board[i-1][j+1] && game_board[i-1][j+1] == game_board[i-2][j+2] && game_board[i-2][j+2] == game_board[i-3][j+3]){
+                return game_board[i][j];
+            }
+        }
+    }
     
     if(get_remaining_moves() == 0){
         return -2;
