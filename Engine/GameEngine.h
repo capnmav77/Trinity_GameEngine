@@ -59,7 +59,7 @@ public:
                     }
                 }
                 int terminal_status = game->get_game_state();
-                game->render_board();
+                //game->render_board();
                 
                 if (terminal_status != -1)
                 {
