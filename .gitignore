@@ -2,3 +2,6 @@
 *.out
 *.o
 errortemplate.txt
+.obsidian/
+.vscode/
+Archives-DoNotModify/
