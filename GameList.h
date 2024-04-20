@@ -91,6 +91,7 @@ void Connect4_Plugin()
   std::cout<<"2.  AI v/s Human "<<std::endl;
   std::cout<<"3.  Human v/s AI "<<std::endl;
   std::cout<<"4.  AI v/s AI "<<std::endl;
+  std::cout<<"5.  Human v/s AI [Do not Play] "<<std::endl;
 
   int wish ;
   std::cout<<"Wish : "<<std::endl;
@@ -117,6 +118,14 @@ void Connect4_Plugin()
     gameEngine.game_loop(); 
   }
   else if(wish ==3){
+    HumanPlayer h1;
+    AIPlayer<Connect4> ai_2(&gamePack);
+    h1.initialize_player(0);
+    ai_2.initialize_player(1);
+    GameEngine<Connect4,HumanPlayer*,AIPlayer<Connect4>*> gameEngine(&gamePack,&h1,&ai_2); 
+    gameEngine.game_loop();
+  }
+  else if(wish == 5){
     HumanPlayer h1;
     AIPlayer<Connect4> ai_2(&gamePack);
     h1.initialize_player(0);
