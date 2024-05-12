@@ -50,7 +50,7 @@ private:
         if(wins==1 && total_games==1){
             return 10;
         }
-        double UCB = (wins*3.5 + draws*3.0 - losses*3.0)/(double)total_games + sqrt(2 * log(total_games) / (total_games * exploration_factor));
+        double UCB = (wins*4 + draws*3.0 - losses*3.0)/(double)total_games + sqrt(2 * log(total_games) / (total_games * exploration_factor));
         return UCB;
     }
 

@@ -1,5 +1,5 @@
 - a. Project Introduction : 
-	- IWe Introduce our state-of-the-art Generic Game Engine, written in C++, designed to run any game , elevating the possibilities . This powerful engine is capable of seamlessly playing a multitude of games, from classic Tic Tac Toe to strategic Connect Four, with the ability to effortlessly integrate new game logics.Our engine is built on the foundation of robust and versatile programming concepts, such as templates, variadic templates, and function overloading, ensuring a flexible and adaptable framework for any gaming scenario. With the capability to support multiplayer games, as well as Player vs Player matches, this engine is the ultimate tool for unlimited gaming possibilities.At the heart of our engine lies an AI that is capable of playing any game , the AI while efficient, may underdeliver in certain situations. However, this serves as a powerful foundation for the development of future AI algorithms, paving the way for stronger and more robust artificial intelligence implementations.
+	- We Introduce our state-of-the-art Generic Game Engine, written in C++, designed to run any game , elevating the possibilities . This powerful engine is capable of seamlessly playing a multitude of games, from classic Tic Tac Toe to strategic Connect Four, with the ability to effortlessly integrate new game logics.Our engine is built on the foundation of robust and versatile programming concepts, such as templates, variadic templates, and function overloading, ensuring a flexible and adaptable framework for any gaming scenario. With the capability to support multiplayer games, as well as Player vs Player matches, this engine is the ultimate tool for unlimited gaming possibilities.At the heart of our engine lies an AI that is capable of playing any game , the AI while efficient, may underdeliver in certain situations. However, this serves as a powerful foundation for the development of future AI algorithms, paving the way for stronger and more robust artificial intelligence implementations.
 
 
 - b. List of GP features you have used in your project
@@ -27,3 +27,4 @@
   - e. List of known bugs
 	  - AI does not live upto standards . 
 	  - Connect4 requirements are computationally expensive causing using a substandard but efficient ai.
+	  - Avanish

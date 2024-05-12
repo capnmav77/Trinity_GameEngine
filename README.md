@@ -43,3 +43,8 @@
 
 # Contribute 🤗
   we are open to anyone who likes to improvise and contribute to this project , you can create a pr or get in touch with us using the email : rameshwar77411@gmail.com , AShenoy64@gmail.com
+
+## License
+
+This project is licensed under the [MIT License](LICENSE), permitting unrestricted use, modification, and distribution in accordance with the stipulated terms.
+
