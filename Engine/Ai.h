@@ -7,6 +7,9 @@
 #include "GameBoard.h"
 #include "State.h"
 #include <unordered_map>
+#include <thread>
+#include <mutex>
+#include <future>
 
 template <typename GAME>
 
@@ -189,5 +192,55 @@ public:
         game->simulate(SIMULATE_STATE::LOAD_BOARD);
         return move;
     }
+
+    // std::string decide_move()
+    // {
+    //     game_states.clear();
+    //     game->simulate(SIMULATE_STATE::SAVE_BOARD);
+
+    //     Vector<typename GAME::MOVE> valid_moves = game->get_valid_moves();
+    //     Vector<double> UBC_Rates(valid_moves.size());
+
+    //     typename GAME::PLAYER_NOTATION player = game->get_turn();
+    //     cout << "AI TURN : " << AI_Turn << endl;
+
+    //     Vector<std::future<void>> futures;
+    //     std::mutex mtx;
+
+    //     for (size_t i = 0; i < valid_moves.size(); ++i)
+    //     {
+    //         futures.push_back(std::move(std::async(std::launch::async, [this, &valid_moves, &UBC_Rates, &mtx, i, player]() {
+    //             Vector<int> result = simulate_game<typename GAME::MOVE, typename GAME::PLAYER_NOTATION>(valid_moves[i], player, 1);
+                
+    //             double UCB = calculate_UCB(result[0], result[1], result[2]);
+                
+    //             {
+    //                 std::lock_guard<std::mutex> lock(mtx);
+    //                 cout << "FOR MOVE " << valid_moves[i] << " UCB IS " << UCB << endl;
+    //                 UBC_Rates[i] = UCB;
+    //             }
+    //         })));
+    //     }
+
+    //     // Wait for all threads to complete
+    //     for (auto& future : futures) {
+    //         future.wait();
+    //     }
+
+    //     // Find the best move based on the UCB values
+    //     int max_index = 0;
+    //     for (int i = 0; i < UBC_Rates.size(); i++)
+    //     {
+    //         if (UBC_Rates[i] > UBC_Rates[max_index])
+    //         {
+    //             max_index = i;
+    //         }
+    //     }
+
+    //     // Return the best move
+    //     std::string move = std::to_string(valid_moves[max_index]);
+    //     game->simulate(SIMULATE_STATE::LOAD_BOARD);
+    //     return move;
+    // }
     
 };

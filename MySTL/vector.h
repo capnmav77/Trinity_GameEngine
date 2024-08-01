@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include <utility>  // for std::move
 using namespace std;
 
 
@@ -36,6 +37,36 @@ class Vector{
     T& operator[](int index);
     Vector<T>& operator=(const Vector<T>& v);
 
+    Vector(Vector<T>&& other) noexcept
+        : buff(other.buff), _capacity(other._capacity), current(other.current) {
+        other.buff = nullptr;
+        other._capacity = 0;
+        other.current = 0;
+    }
+
+    // Add move assignment operator
+    Vector<T>& operator=(Vector<T>&& other) noexcept {
+        if (this != &other) {
+            delete[] buff;
+            buff = other.buff;
+            _capacity = other._capacity;
+            current = other.current;
+            other.buff = nullptr;
+            other._capacity = 0;
+            other.current = 0;
+        }
+        return *this;
+    }
+
+    // Modify push_back to accept rvalue reference
+    void push_back(T&& value) {
+        if (current == _capacity) {
+            reserve(_capacity + 5);
+        }
+        buff[current] = std::move(value);
+        current++;
+    }
+
     void clear();
 };
 
@@ -62,6 +93,17 @@ Vector<T>::Vector(unsigned int size, const T& initial){
     for(int i=0; i<size; i++){
         buff[i] = initial;
     }
+}
+
+template<typename T>
+void Vector<T>::reserve(int capacity) {
+    T* new_buff = new T[capacity];
+    for (int i = 0; i < current; i++) {
+        new_buff[i] = std::move(buff[i]);
+    }
+    delete[] buff;
+    buff = new_buff;
+    this->_capacity = capacity;
 }
 
 template<typename T>
@@ -129,16 +171,6 @@ void Vector<T>::pop_back(){
     current--;
 }
 
-template<typename T>
-void Vector<T>::reserve(int capacity){
-    T* new_buff = new T[capacity];
-    for(int i=0; i<current; i++){
-        new_buff[i] = buff[i];
-    }
-    delete[] buff;
-    buff = new_buff;
-    this->_capacity = capacity;
-}
 
 template<typename T>
 void Vector<T>::resize(int size){
